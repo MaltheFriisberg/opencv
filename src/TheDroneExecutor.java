@@ -23,10 +23,7 @@ public class TheDroneExecutor {
             System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
             //Remember to Toggle the camera on
             drone.toggleCamera();
-            
-            //drone.getVideoManager().connect()
-
-
+            drone.getVideoManager().connect(1337);
 
         }
         catch (Exception exc)
@@ -42,6 +39,7 @@ public class TheDroneExecutor {
                 CommandManager cmd = drone.getCommandManager();
 
                 DroneVideoListener listener = new DroneVideoListener(drone);
+                drone.getVideoManager().addImageListener(listener);
                 /*drone.getVideoManager().addImageListener(new ImageListener() {
                     @Override
                     public void imageUpdated(BufferedImage bufferedImage) {
