@@ -4,6 +4,9 @@ import org.opencv.imgproc.Imgproc;
 
 import javax.swing.text.html.ImageView;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+
 import static org.opencv.imgproc.Imgproc.circle;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
@@ -14,9 +17,9 @@ public class OpenCV {
 
 
 
-    static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
+    //static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     public static ImageViewer viewer = new ImageViewer();
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         for (int i = 141; i <643; i++) {
             String imagepath = "Resources/billed/image"+i+".jpg";
@@ -29,9 +32,9 @@ public class OpenCV {
             }
         }
 
-        }
-    private static void detectAndShowCircles(String imagepath) {
-        Mat image = Imgcodecs.imread(imagepath);
+        }*/
+    public void detectAndShowCircles(BufferedImage img) {
+        Mat image = bufferedImageToMat(img);
         Mat gray = new Mat();
         Mat circles = new Mat();
 
@@ -62,7 +65,7 @@ public class OpenCV {
         }
     }
 
-    private static MatOfPoint pointFeaturesToCircleCenter(Mat image, Point center) {
+    public  MatOfPoint pointFeaturesToCircleCenter(Mat image, Point center) {
         MatOfPoint corners = new MatOfPoint();
         //corners.
         Mat gray = new Mat();
@@ -83,6 +86,12 @@ public class OpenCV {
         //rectangle(image, new Point(cornerpoints[0].x, cornerpoints[0].y), new Point(cornerpoints[1].x, cornerpoints[1].y), new Scalar(255, 255, 0));
         //Imgproc.goodFeaturesToTrack();
         return corners;
+    }
+    private  static Mat bufferedImageToMat(BufferedImage bi) {
+        Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
+        byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+        mat.put(0, 0, data);
+        return mat;
     }
 }
 
