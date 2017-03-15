@@ -15,6 +15,7 @@ public class ImageViewer {
         createJFrame("");
     }
 
+
     public void show(Mat image) {
         show(image,"");
     }
