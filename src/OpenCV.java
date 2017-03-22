@@ -17,7 +17,7 @@ public class OpenCV {
 
 
 
-    //static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
+    static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     public static ImageViewer viewer = new ImageViewer();
     /*public static void main(String[] args) {
 

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="reflections1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Modules/YADrone/lib/reflections/guava-11.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Modules/YADrone/lib/reflections/javassist-3.16.1-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Modules/YADrone/lib/reflections/reflections-0.9.9-RC1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

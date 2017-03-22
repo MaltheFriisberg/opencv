@@ -23,11 +23,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/yadrone_032.jar!/" />
+          <root url="file://$MODULE_DIR$/../YaDrone/YADrone/lib" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../YaDrone/YADrone/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../YaDrone/YADrone/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../YaDrone/YADrone/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="YADrone" />
   </component>
 </module>

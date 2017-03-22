@@ -22,6 +22,6 @@ public class DroneVideoListener implements ImageListener {
 
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
-        openCV.detectAndShowCircles(bufferedImage);
+        this.openCV.detectAndShowCircles(bufferedImage);
     }
 }
