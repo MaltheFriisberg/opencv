@@ -19,11 +19,11 @@ public class OpenCV {
 
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     public static ImageViewer viewer = new ImageViewer();
-    /*public static void main(String[] args) {
-
+    public static void main(String[] args) {
+        Mat mat = new Mat();
         for (int i = 141; i <643; i++) {
             String imagepath = "Resources/billed/image"+i+".jpg";
-            detectAndShowCircles(imagepath);
+            //detectAndShowCircles(imagepath);
             try {
                 //1 fps pcmasterrace
                 Thread.sleep(200);
@@ -32,7 +32,7 @@ public class OpenCV {
             }
         }
 
-        }*/
+        }
     public void detectAndShowCircles(BufferedImage img) {
         Mat image = bufferedImageToMat(img);
         Mat gray = new Mat();
