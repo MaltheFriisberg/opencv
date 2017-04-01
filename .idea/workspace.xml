@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc62257d-1a37-48b2-a956-87aeb2408d87" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/testZXing.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OpenCV/OpenCV.class" afterPath="$PROJECT_DIR$/out/production/OpenCV/OpenCV.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OpenCV.iml" afterPath="$PROJECT_DIR$/OpenCV.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageViewer.java" afterPath="$PROJECT_DIR$/src/ImageViewer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OpenCV.java" afterPath="$PROJECT_DIR$/src/OpenCV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/testZXing.java" afterPath="$PROJECT_DIR$/src/testZXing.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="OpenCV.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/OpenCV.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="30" column="36" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+            <state relative-caret-position="227">
+              <caret line="28" column="36" lean-forward="false" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -37,9 +35,11 @@
       <file leaf-file-name="testZXing.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/testZXing.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="497">
+              <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,8 +59,8 @@
       <file leaf-file-name="ImageViewer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ImageViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+            <state relative-caret-position="450">
+              <caret line="32" column="41" lean-forward="false" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
               <folding>
                 <element signature="e#363#364#0" expanded="true" />
                 <element signature="e#393#394#0" expanded="true" />
@@ -102,12 +102,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ImageViewer.java" />
         <option value="$PROJECT_DIR$/src/DroneVideoListener.java" />
         <option value="$PROJECT_DIR$/src/YAdrone/yadrone/apps/tutorial/TutorialMain.java" />
         <option value="$PROJECT_DIR$/src/YAdrone/yadrone/apps/controlcenter/plugins/altitude/AltitudeChartPanel.java" />
         <option value="$PROJECT_DIR$/src/TheDroneExecutor.java" />
         <option value="$PROJECT_DIR$/src/OpenCV.java" />
+        <option value="$PROJECT_DIR$/src/ImageViewer.java" />
         <option value="$PROJECT_DIR$/src/testZXing.java" />
       </list>
     </option>
@@ -216,7 +216,7 @@
       <recent name="$PROJECT_DIR$/libs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.OpenCV">
+  <component name="RunManager" selected="Application.testZXing">
     <configuration default="false" name="TheDroneExecutor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="TheDroneExecutor" />
@@ -243,6 +243,21 @@
       <option name="VM_PARAMETERS" value="-Djava.library.path=&quot;$USER_HOME$/Downloads/opencv-3.2.0/build/lib&quot;" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="OpenCV" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="testZXing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="testZXing" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -452,14 +467,16 @@
       <envs />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.TheDroneExecutor" />
       <item index="1" class="java.lang.String" itemvalue="Application.OpenCV" />
+      <item index="2" class="java.lang.String" itemvalue="Application.testZXing" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.OpenCV" />
-        <item index="1" class="java.lang.String" itemvalue="Application.TheDroneExecutor" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Application.testZXing" />
+        <item index="1" class="java.lang.String" itemvalue="Application.OpenCV" />
+        <item index="2" class="java.lang.String" itemvalue="Application.TheDroneExecutor" />
       </list>
     </recent_temporary>
   </component>
@@ -542,7 +559,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/OpenCV.java</url>
-          <line>77</line>
+          <line>85</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
@@ -560,7 +577,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/OpenCV.java</url>
-          <line>36</line>
+          <line>44</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
@@ -930,17 +947,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/YADrone/YADrone/src/de/yadrone/apps/paperchase/PaperChase.java" />
-    <entry file="file://$PROJECT_DIR$/src/ImageViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-          <folding>
-            <element signature="e#363#364#0" expanded="true" />
-            <element signature="e#393#394#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/YAdrone/yadrone/apps/tutorial/TutorialMain.java" />
     <entry file="file://$PROJECT_DIR$/src/YAdrone/yadrone/apps/paperchase/PaperChase.java" />
     <entry file="file://$PROJECT_DIR$/src/YAdrone/yadrone/apps/controlcenter/plugins/altitude/AltitudeChartPanel.java" />
@@ -957,16 +963,6 @@
         <state relative-caret-position="360">
           <caret line="35" column="27" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DroneVideoListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="35" lean-forward="false" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -995,10 +991,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="32" column="41" lean-forward="false" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+          <folding>
+            <element signature="e#363#364#0" expanded="true" />
+            <element signature="e#393#394#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/OpenCV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="30" column="36" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+        <state relative-caret-position="227">
+          <caret line="28" column="36" lean-forward="false" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DroneVideoListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="35" lean-forward="false" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1007,9 +1024,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/testZXing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="497">
+          <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

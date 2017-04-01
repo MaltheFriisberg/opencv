@@ -29,6 +29,13 @@ public class ImageViewer {
         frame.setVisible(true);
     }
 
+    public void show(BufferedImage image) {
+        imageView.setIcon(new ImageIcon(image));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
     private JFrame createJFrame(String windowName) {
         frame = new JFrame(windowName);
         imageView = new JLabel();
