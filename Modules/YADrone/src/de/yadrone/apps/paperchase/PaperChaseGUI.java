@@ -259,7 +259,7 @@ public class PaperChaseGUI extends JFrame implements ImageListener, TagListener
 		} catch (Exception e) {
 			System.out.println("Error in saving picture");
 		}
-		
+
 		if ((++imageCount % 2) == 0)
 			return;
 		
@@ -278,7 +278,7 @@ public class PaperChaseGUI extends JFrame implements ImageListener, TagListener
 		if (result != null)
 		{
 			this.result = result;
-			this.orientation = orientation + "°";
+			this.orientation = orientation + "ï¿½";
 			
 			// check if that's a tag (shred) which has not be seen before and mark it as 'found'
 			for (int i=0; i < shredsToFind.length; i++)
