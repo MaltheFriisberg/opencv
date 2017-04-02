@@ -27,6 +27,7 @@ public class OpenCV {
         BufferedImage image;
         for (int i = 141; i <643; i++) {
             String imagepath = "Resources/billed/image"+i+".jpg";
+            //String imagepath = "Resources/qrcodes/qrcode.png";
 
             try {
                 image = ImageIO.read(new File(imagepath));
@@ -44,10 +45,11 @@ public class OpenCV {
     public static void detectAndShowCircles(BufferedImage img) {
         Mat image = bufferedImageToMat(img);
         Mat gray = new Mat();
+        Mat blurred = new Mat();
         Mat circles = new Mat();
 
         Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
-
+        Imgproc.GaussianBlur(gray, blurred, new Size(45,45),0);
         Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 30, 0 );
         System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
         double x = 0.0;

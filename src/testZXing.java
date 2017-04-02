@@ -19,10 +19,10 @@ public class testZXing {
 
 
         BufferedImage image;
-        for (int i = 1700; i < 3700; i++) {
-            
-            String imagepath = "Resources/newpictures/billlede" + i + ".png";
+        for (int i = 0; i < 3700; i++) {
 
+            String imagepath = "Resources/newpictures/billlede" + i + ".png";
+            //String imagepath = "Resources/qrcodes/qrcode(1).png";
             try {
                 image = ImageIO.read(new File(imagepath));
 
