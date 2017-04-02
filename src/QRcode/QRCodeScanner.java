@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * Created by malthe on 4/1/17.
  */
-public class PaperChaseGUI extends JFrame implements ImageListener, TagListener
+public class QRCodeScanner extends JFrame implements ImageListener, TagListener
 {
 
 
@@ -43,7 +43,7 @@ public class PaperChaseGUI extends JFrame implements ImageListener, TagListener
 
     private boolean gameOver = false;
 
-    public PaperChaseGUI()
+    public QRCodeScanner()
     {
         super("");
 

@@ -1,4 +1,4 @@
-import QRcode.PaperChaseGUI;
+import QRcode.QRCodeScanner;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class testZXing {
     //private static Util.ImageViewer viewer = new Util.ImageViewer();
-    private static PaperChaseGUI gui = new PaperChaseGUI();
+    private static QRCodeScanner gui = new QRCodeScanner();
     public static void main(String[] args) {
 
 
