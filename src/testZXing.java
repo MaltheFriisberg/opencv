@@ -13,7 +13,7 @@ import java.io.IOException;
  * Created by malthe on 4/1/17.
  */
 public class testZXing {
-    private static ImageViewer viewer = new ImageViewer();
+    //private static Util.ImageViewer viewer = new Util.ImageViewer();
     private static PaperChaseGUI gui = new PaperChaseGUI();
     public static void main(String[] args) {
 

@@ -1,27 +1,31 @@
-import de.yadrone.base.ARDrone;
+import Util.ImageViewer;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.video.ImageListener;
 
 import java.awt.image.BufferedImage;
 
+import static CircleDetection.CircleDetector.detectAndShowCircles;
+
 /**
  * Created by malthe on 3/15/17.
  */
+
 public class DroneVideoListener implements ImageListener {
 
-    private OpenCV openCV;
-    //private ImageViewer imageViewer;
+    private testOpenCV openCV;
+    private ImageViewer imageViewer;
     private IARDrone drone;
 
     public DroneVideoListener(IARDrone drone) {
         this.drone = drone;
+        this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
-        this.openCV = new OpenCV();
+        this.openCV = new testOpenCV();
 
     }
 
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
-        this.openCV.detectAndShowCircles(bufferedImage);
+        detectAndShowCircles(bufferedImage, this.imageViewer);
     }
 }

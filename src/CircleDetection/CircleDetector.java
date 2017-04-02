@@ -1,49 +1,24 @@
-import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
+package CircleDetection;
+
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-import javax.imageio.ImageIO;
-import javax.swing.text.html.ImageView;
-
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.File;
-import java.io.IOException;
-
+import Util.ImageViewer;
 import static Util.ImageConverter.bufferedImageToMat;
 import static org.opencv.imgproc.Imgproc.circle;
-import static org.opencv.imgproc.Imgproc.rectangle;
 
 /**
- * Created by malthe on 3/8/17.
+ * Created by malthe on 4/2/17.
  */
-public class OpenCV {
+public class CircleDetector {
 
+    //public static ImageViewer viewer = new ImageViewer();
 
-
-    static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
-    public static ImageViewer viewer = new ImageViewer();
-    public static void main(String[] args) {
-        Mat mat = new Mat();
-        BufferedImage image;
-        for (int i = 141; i <643; i++) {
-            String imagepath = "Resources/billed/image"+i+".jpg";
-            //String imagepath = "Resources/qrcodes/qrcode.png";
-
-            try {
-                image = ImageIO.read(new File(imagepath));
-                detectAndShowCircles(image);
-                //1 fps pcmasterrace
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        }
-    public static void detectAndShowCircles(BufferedImage img) {
+    public static void detectAndShowCircles(BufferedImage img, ImageViewer viewer) {
         Mat image = bufferedImageToMat(img);
         Mat gray = new Mat();
         //Mat blurred = new Mat();
@@ -75,7 +50,6 @@ public class OpenCV {
             //Core.
         }
     }
-
     public static MatOfPoint pointFeaturesToCircleCenter(Mat image, Point center) {
         MatOfPoint corners = new MatOfPoint();
         //corners.
@@ -98,15 +72,5 @@ public class OpenCV {
         //Imgproc.goodFeaturesToTrack();
         return corners;
     }
-    /*private static Mat bufferedImageToMat(BufferedImage bi) {
-        Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
-        byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
-        mat.put(0, 0, data);
-        return mat;
-    }*/
+
 }
-
-
-
-
-
