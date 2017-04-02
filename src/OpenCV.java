@@ -10,6 +10,7 @@ import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 
+import static Util.ImageConverter.bufferedImageToMat;
 import static org.opencv.imgproc.Imgproc.circle;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
@@ -45,11 +46,11 @@ public class OpenCV {
     public static void detectAndShowCircles(BufferedImage img) {
         Mat image = bufferedImageToMat(img);
         Mat gray = new Mat();
-        Mat blurred = new Mat();
+        //Mat blurred = new Mat();
         Mat circles = new Mat();
 
         Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
-        Imgproc.GaussianBlur(gray, blurred, new Size(45,45),0);
+        //Imgproc.GaussianBlur(gray, blurred, new Size(11,11),0);
         Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 30, 0 );
         System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
         double x = 0.0;
@@ -97,12 +98,12 @@ public class OpenCV {
         //Imgproc.goodFeaturesToTrack();
         return corners;
     }
-    private  static Mat bufferedImageToMat(BufferedImage bi) {
+    /*private static Mat bufferedImageToMat(BufferedImage bi) {
         Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
         byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
         mat.put(0, 0, data);
         return mat;
-    }
+    }*/
 }
 
 
