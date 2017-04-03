@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc62257d-1a37-48b2-a956-87aeb2408d87" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/testEllipses.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/OpenCV/QRcode/PaperChaseGUI$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/OpenCV/QRcode/PaperChaseGUI$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/OpenCV/QRcode/PaperChaseGUI.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OpenCV/Elipsedetection/ElipseDetector.class" afterPath="$PROJECT_DIR$/out/production/OpenCV/Elipsedetection/ElipseDetector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OpenCV/testZXing.class" afterPath="$PROJECT_DIR$/out/production/OpenCV/testZXing.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Elipsedetection/ElipseDetector.java" afterPath="$PROJECT_DIR$/src/Elipsedetection/ElipseDetector.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
