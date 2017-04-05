@@ -40,7 +40,8 @@ public class ElipseDetector {
         Mat result = new Mat();
         result.zeros(tresshold_output.size(), CvType.CV_8UC3);
 
-        /*for( int i = 0; i < contours.size(); i++ )
+        /*
+        for( int i = 0; i < contours.size(); i++ )
         {
             minRect[i] = Imgproc.minAreaRect( new Mat(contours[i]) );
             if( contours[i].size() > 5 )
