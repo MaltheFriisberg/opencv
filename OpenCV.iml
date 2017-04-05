@@ -12,17 +12,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/opencv-3.2.0/build/bin/opencv-320.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/Downloads/opencv-3.2.0/build/bin/opencv-320.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="file://$MODULE_DIR$/../YaDrone/YADrone/lib" />
         </CLASSES>
         <JAVADOC />
@@ -44,5 +33,16 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="zxing1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/opencv/build/bin/opencv-320.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/opencv/build/bin/opencv-320.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
