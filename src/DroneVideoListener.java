@@ -15,6 +15,7 @@ public class DroneVideoListener implements ImageListener {
     private testOpenCV openCV;
     private ImageViewer imageViewer;
     private IARDrone drone;
+    private int counter;
 
     public DroneVideoListener(IARDrone drone) {
         this.drone = drone;
@@ -26,6 +27,9 @@ public class DroneVideoListener implements ImageListener {
 
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
-        detectAndShowCircles(bufferedImage, this.imageViewer);
+        counter++;
+        if (counter % 30 == 0) {
+            detectAndShowCircles(bufferedImage, this.imageViewer);
+        }
     }
 }

@@ -36,6 +36,7 @@ public class testOpenCV {
             try {
                 image = ImageIO.read(new File(imagepath));
                 detectAndShowCircles(image, viewer);
+
                 //1 fps pcmasterrace
                 Thread.sleep(200);
             } catch (InterruptedException e) {
