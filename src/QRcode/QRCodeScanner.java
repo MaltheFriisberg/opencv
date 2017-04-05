@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 
 /**
  * Created by simon on 4/5/17.
+ *
+ * Hello Malthe
  */
 public class QRCodeScanner {
     private static long imageCount = 0;
