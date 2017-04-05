@@ -45,5 +45,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-#Ignore .iml
+##Ignore specific project settings
 *.iml
