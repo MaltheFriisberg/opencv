@@ -1,5 +1,6 @@
 package CircleDetection;
 
+import Util.ReturnCircle;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
@@ -7,6 +8,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.awt.image.BufferedImage;
+
 import Util.ImageViewer;
 import static Util.ImageConverter.bufferedImageToMat;
 import static org.opencv.imgproc.Imgproc.circle;
@@ -18,7 +20,7 @@ public class CircleDetector {
 
     //public static ImageViewer viewer = new ImageViewer();
 
-    public static void detectAndShowCircles(BufferedImage img, ImageViewer viewer) {
+    public static ReturnCircle detectAndShowCircles(BufferedImage img, ImageViewer viewer) {
         Mat image = bufferedImageToMat(img);
         Mat gray = new Mat();
         //Mat blurred = new Mat();
@@ -31,6 +33,7 @@ public class CircleDetector {
         double x = 0.0;
         double y = 0.0;
         int r = 0;
+        ReturnCircle[] circleArray = new ReturnCircle[10];
 
         for( int i = 0; i < circles.rows(); i++ ) {
             double[] data = circles.get(i, 0);
@@ -38,6 +41,7 @@ public class CircleDetector {
                 x = data[0];
                 y = data[1];
                 r = (int) data[2];
+                circleArray[i] = new ReturnCircle(x,y,r);
             }
             Point center = new Point(x, y);
             pointFeaturesToCircleCenter(image, center);
@@ -49,6 +53,16 @@ public class CircleDetector {
 
             //Core.
         }
+
+        ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
+
+        for(int i = 0; i < circles.rows(); i++) {
+            if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
+                biggestCircle = new ReturnCircle(circleArray[i]);
+            }
+        }
+
+        return biggestCircle;
     }
     public static MatOfPoint pointFeaturesToCircleCenter(Mat image, Point center) {
         MatOfPoint corners = new MatOfPoint();

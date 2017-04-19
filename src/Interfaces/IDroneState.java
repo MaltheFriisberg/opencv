@@ -1,11 +1,14 @@
 package Interfaces;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Created by malthe on 4/4/17.
  */
 public interface IDroneState {
-    void search();
-    void approach();
-    void evaluate();
-    void landing();
+    boolean searchQR(BufferedImage image);
+    boolean searchRing(BufferedImage image);
+    boolean approach(BufferedImage image);
+    boolean evaluate();
+    boolean landing();
 }
