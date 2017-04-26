@@ -36,6 +36,7 @@ public class DroneAutoController implements IDroneState {
             } else if(circle.getX() > pictureWidth / 2 - deviation) {
                 // Ryk drone til venstre
 
+
             } else if(circle.getY() < pictureHeight / 2 + deviation) {
                 // Ryk drone opad
 

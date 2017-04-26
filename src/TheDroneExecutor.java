@@ -22,6 +22,7 @@ public class TheDroneExecutor {
         {
             drone = new ARDrone();
             drone.start();
+
             System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
             //Remember to Toggle the camera on
             drone.toggleCamera();
@@ -58,7 +59,7 @@ public class TheDroneExecutor {
 
                 //cmd.takeOff().doFor(5000);
                 //cmd.hover().doFor(10000);
-
+                //cmd.hover();
                 //cmd.goLeft(speed).doFor(1000);
                 //cmd.hover().doFor(10000);
 
