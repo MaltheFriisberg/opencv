@@ -25,6 +25,8 @@ public class StateTester {
         DroneVideoListener listener = null;
 
         IARDrone drone = null;
+
+        System.out.println("Made it to IARDrone drone = null");
         try {
             drone = new ARDrone();
             drone.start();
@@ -32,25 +34,23 @@ public class StateTester {
             //Remember to Toggle the camera on
             drone.toggleCamera();
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
+            drone.getCommandManager().setVideoCodecFps(15);
             //drone.getVideoManager().connect(1337);
             //System.out.println("drone is connected : "+drone.getVideoManager().connect(1337));
+            System.out.println("Made it out of try");
         } catch (Exception exc) {
             System.out.println("test");
             exc.printStackTrace();
+            System.out.println("made it out of catch");
         } finally {
             if (drone != null) {
 
                 cmd = drone.getCommandManager();
 
+                System.out.println("starting to initialize the listener");
                 listener = new DroneVideoListener(drone);
                 drone.getVideoManager().addImageListener(listener);
-                drone.getVideoManager().addImageListener(new ImageListener() {
-                    @Override
-                    public void imageUpdated(BufferedImage bufferedImage) {
-                        int j = 0;
-                        int x = 0;
-                    }
-                });
+                System.out.println("Implemented");
             }
 
             ImageViewer viewer = new ImageViewer();
@@ -65,36 +65,23 @@ public class StateTester {
             while (true) {
                 System.out.println(droneStates.toString());
                 BufferedImage image = null;
-                //String imagepath = "Resources/newpictures/billlede" + i + ".png";
-                //i++;
-                //String imagepath = "Resources/qrcodes/qrcode(1).png";
-                /*
-                try {
-                    image = ImageIO.read(new File(imagepath));
-                    viewer.show(image);
-                    //1 fps pcmasterrace
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                */
+
+                image = listener.getImg();
                 switch (droneStates) {
                     case SearchRing:
-                        if (droneController.searchRing(image, drone)) {
-                            droneStates = DroneStates.SearchRing;
+                        if (droneController.searchRing(listener.getImg(), drone)) {
+                            droneStates = DroneStates.SearchQR;
                         }
 
                         break;
                     case SearchQR:
-                        if (droneController.searchQR(image, drone)) {          // Hvis QR kode findes og er korrekt i forhold til rækkefølgen
+                        if (droneController.searchQR(listener.getImg(), drone)) {          // Hvis QR kode findes og er korrekt i forhold til rækkefølgen
                             droneStates = DroneStates.Approach;
                         }
                         break;
 
                     case Approach:
-                        if (droneController.approach(image, drone)) {        // Hvis dronen succesfuldt har fløjet igennem ringen
+                        if (droneController.approach(listener.getImg(), drone)) {        // Hvis dronen succesfuldt har fløjet igennem ringen
                             droneStates = DroneStates.Evaluation;
                         }
                         break;
