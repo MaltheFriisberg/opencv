@@ -1,5 +1,6 @@
 package Statemachine;
 
+import Approach.ApproachAnalyzer;
 import Util.ImageViewer;
 
 import javax.imageio.ImageIO;
@@ -11,6 +12,8 @@ import java.io.IOException;
  * Created by Pyke-Laptop on 19-04-2017.
  */
 public class StateTester {
+
+    //public ApproachAnalyzer approachAnalyzer;
 
     enum DroneStates {
         SearchRing, SeachQR, Approach, Evaluation, Landing
@@ -57,7 +60,8 @@ public class StateTester {
                     break;
 
                 case Approach:
-                    if (droneController.approach(image)) {        // Hvis dronen succesfuldt har fløjet igennem ringen
+                    //ApproachAnalyzer analyzer = new ApproachAnalyzer();
+                    if (droneController.approach(image)) {// Hvis dronen succesfuldt har fløjet igennem ringen
                         droneStates = DroneStates.Evaluation;
                     }
                     break;
