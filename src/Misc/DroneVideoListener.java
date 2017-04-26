@@ -22,9 +22,9 @@ public class DroneVideoListener implements ImageListener {
     //private BufferedImage img;
     DroneAutoController droneAutoController;
 
-    public DroneVideoListener(IARDrone drone, DroneAutoController droneAutoController) {
+    public DroneVideoListener(DroneAutoController droneAutoController) {
         this.droneAutoController = droneAutoController;
-        this.drone = drone;
+
         this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
         this.openCV = new testOpenCV();

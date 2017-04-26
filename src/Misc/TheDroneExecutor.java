@@ -43,18 +43,7 @@ public class TheDroneExecutor {
             {
 
 //
-                CommandManager cmd = drone.getCommandManager();
 
-                //DroneVideoListener listener = new DroneVideoListener(drone);
-                //drone.getVideoManager().addImageListener(listener);
-                drone.getVideoManager().addImageListener(new ImageListener() {
-                    @Override
-                    public void imageUpdated(BufferedImage bufferedImage) {
-                        int j = 0;
-                        int x = 0;
-
-                    }
-                });
                 //cmd.ca
                 int speed = 5; // percentage of max speed
 

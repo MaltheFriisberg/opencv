@@ -20,11 +20,11 @@ public class StateTester {
 
     //public ApproachAnalyzer approachAnalyzer;
 
-    public static enum DroneStates {
+    /*public static enum DroneStates {
         SearchRing, SearchQR, Approach, Evaluation, Landing
-    }
-    @SuppressWarnings("Duplicates")
-    public static void main(String args[]) {
+    }*/
+    
+    /*public static void main(String args[]) {
 
         CommandManager cmd = null;
         DroneVideoListener listener = null;
@@ -48,7 +48,7 @@ public class StateTester {
 
                 cmd = drone.getCommandManager();
                 droneController = new DroneAutoController();
-                listener = new DroneVideoListener(drone, droneController);
+                listener = new DroneVideoListener(drone);
                 drone.getVideoManager().addImageListener(listener);
                 drone.getVideoManager().addImageListener(new ImageListener() {
                     @Override
@@ -105,6 +105,6 @@ public class StateTester {
             }
 
         }
-    }
+    }*/
 
 }
