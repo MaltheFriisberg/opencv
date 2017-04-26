@@ -29,7 +29,7 @@ public class DroneAutoController implements IDroneState {
     public boolean searchRing(BufferedImage image, IARDrone drone) {
 
         cmd = drone.getCommandManager();
-
+        
         cmd.takeOff().doFor(5000);
         cmd.hover().doFor(500);
         cmd.landing();
