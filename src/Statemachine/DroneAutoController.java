@@ -15,7 +15,7 @@ import static CircleDetection.CircleDetector.detectAndShowCircles;
  * Created by malthe on 4/4/17.
  */
 public class DroneAutoController implements IDroneState {
-    //IARDrone drone;
+
     QRScanner qrScanner = new QRScanner();
     public int nextPort = 1;
 
@@ -23,9 +23,8 @@ public class DroneAutoController implements IDroneState {
     private final int pictureWidth = 640;
     private final int pictureHeight = 360;
 
-//public DroneAutoController(IARDrone drone) {this.drone = drone;}
 
-    public boolean searchRing(BufferedImage image) {
+    public boolean searchRing(BufferedImage image, IARDrone drone) {
 
         ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
 
@@ -45,16 +44,15 @@ public class DroneAutoController implements IDroneState {
             } else {
                 // Dronen er perfekt centreret
 
-                return true; // Skift state til QR-kode
+                // Skift state til Approach
             }
 
         }
-
         return false;
     }
 
     @Override
-    public boolean searchQR(BufferedImage image) {
+    public boolean searchQR(BufferedImage image, IARDrone drone) {
 
         //this.drone.getCommandManager().hover();
         //turn 360 and look for circles.cr codes
@@ -69,7 +67,7 @@ public class DroneAutoController implements IDroneState {
     }
 
     @Override
-    public boolean approach(BufferedImage image) {
+    public boolean approach(BufferedImage image, IARDrone drone) {
         //fly towards the object
         // this.drone.getCommandManager().doFor(1000).forward(2);
         return false;
@@ -83,7 +81,7 @@ public class DroneAutoController implements IDroneState {
     }
 
     @Override
-    public boolean landing() {
+    public boolean landing(IARDrone drone) {
         // this.drone.getCommandManager().landing();
         return false;
     }

@@ -1,6 +1,7 @@
 package Statemachine;
 
 import Util.ImageViewer;
+import de.yadrone.base.IARDrone;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ public class StateTester {
         DroneStates droneStates;
         droneStates = DroneStates.SeachQR;
         DroneAutoController droneController = new DroneAutoController();
+        IARDrone drone;
 
         int i = 1300;
         while (true) {
