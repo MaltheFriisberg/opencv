@@ -22,8 +22,11 @@ public class StateTester {
     enum DroneStates {
         SearchRing, SeachQR, Approach, Evaluation, Landing
     }
-
+    @SuppressWarnings("Duplicates")
     public static void main(String args[]) {
+
+        CommandManager cmd = null;
+        DroneVideoListener listener = null;
 
         IARDrone drone = null;
         try {
@@ -40,9 +43,9 @@ public class StateTester {
         } finally {
             if (drone != null) {
 
-                CommandManager cmd = drone.getCommandManager();
+                cmd = drone.getCommandManager();
 
-                DroneVideoListener listener = new DroneVideoListener(drone);
+                listener = new DroneVideoListener(drone);
                 drone.getVideoManager().addImageListener(listener);
                 drone.getVideoManager().addImageListener(new ImageListener() {
                     @Override
@@ -63,14 +66,16 @@ public class StateTester {
             int speed = 5;
 
             int i = 1300;
+
             while (true) {
 
 
                 System.out.println(droneStates.toString());
                 BufferedImage image = null;
-                String imagepath = "Resources/newpictures/billlede" + i + ".png";
-                i++;
+                //String imagepath = "Resources/newpictures/billlede" + i + ".png";
+                //i++;
                 //String imagepath = "Resources/qrcodes/qrcode(1).png";
+                /*
                 try {
                     image = ImageIO.read(new File(imagepath));
                     viewer.show(image);
@@ -81,22 +86,22 @@ public class StateTester {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+                */
                 switch (droneStates) {
                     case SearchRing:
-                        if (droneController.searchRing(image, drone)) {
+                        if (droneController.searchRing(listener.getImg(), drone)) {
                             droneStates = DroneStates.SearchRing;
                         }
 
                         break;
                     case SeachQR:
-                        if (droneController.searchQR(image, drone)) {          // Hvis QR kode findes og er korrekt i forhold til rækkefølgen
+                        if (droneController.searchQR(listener.getImg(), drone)) {          // Hvis QR kode findes og er korrekt i forhold til rækkefølgen
                             droneStates = DroneStates.Approach;
                         }
                         break;
 
                     case Approach:
-                        if (droneController.approach(image, drone)) {        // Hvis dronen succesfuldt har fløjet igennem ringen
+                        if (droneController.approach(listener.getImg(), drone)) {        // Hvis dronen succesfuldt har fløjet igennem ringen
                             droneStates = DroneStates.Evaluation;
                         }
                         break;

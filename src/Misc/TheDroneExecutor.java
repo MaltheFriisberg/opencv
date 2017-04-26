@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class TheDroneExecutor {
 
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws InterruptedException
     {
         //PaperChase pc = new PaperChase();

@@ -18,6 +18,7 @@ public class DroneVideoListener implements ImageListener {
     private ImageViewer imageViewer;
     private IARDrone drone;
     private int counter;
+    private BufferedImage img;
 
     public DroneVideoListener(IARDrone drone) {
         this.drone = drone;
@@ -32,6 +33,11 @@ public class DroneVideoListener implements ImageListener {
         counter++;
         if (counter % 30 == 0) {
             detectAndShowCircles(bufferedImage, this.imageViewer);
+            img = bufferedImage;
         }
+    }
+
+    public BufferedImage getImg() {
+        return img;
     }
 }
