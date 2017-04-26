@@ -30,8 +30,8 @@ public class DroneAutoController implements IDroneState {
 
         cmd = drone.getCommandManager();
         
-        cmd.takeOff().doFor(5000);
-        cmd.hover().doFor(500);
+        //cmd.takeOff().doFor(5000);
+        //cmd.hover().doFor(500);
         cmd.landing();
 
         /*ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
