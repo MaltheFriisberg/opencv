@@ -39,7 +39,7 @@ public class TheDroneExecutor {
             if (drone != null)
             {
 
-
+//
                 CommandManager cmd = drone.getCommandManager();
 
                 DroneVideoListener listener = new DroneVideoListener(drone);
