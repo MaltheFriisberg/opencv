@@ -23,7 +23,7 @@ public class DroneAutoController implements IDroneState {
     private final int pictureWidth = 640;
     private final int pictureHeight = 360;
 
-//public Statemachine.DroneAutoController(IARDrone drone) {this.drone = drone;}
+//public DroneAutoController(IARDrone drone) {this.drone = drone;}
 
     public boolean searchRing(BufferedImage image) {
 
@@ -45,11 +45,10 @@ public class DroneAutoController implements IDroneState {
             } else {
                 // Dronen er perfekt centreret
 
-                // Skift state til Approach
+                return true; // Skift state til QR-kode
             }
 
         }
-
 
         return false;
     }

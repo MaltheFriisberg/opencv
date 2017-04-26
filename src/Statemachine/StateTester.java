@@ -46,11 +46,14 @@ public class StateTester {
             switch (droneStates) {
                 case SearchRing:
                     if(droneController.searchRing(image)) {
-                        droneStates = DroneStates.SearchRing;
+                        droneStates = DroneStates.SeachQR;
                     }
 
                     break;
                 case SeachQR:
+                    if (!droneController.searchQR(image)) {
+
+                    }
                     if (droneController.searchQR(image)) {          // Hvis QR kode findes og er korrekt i forhold til rækkefølgen
                         droneStates = DroneStates.Approach;
                     }
