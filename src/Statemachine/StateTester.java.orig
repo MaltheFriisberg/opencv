@@ -1,6 +1,10 @@
 package Statemachine;
 
+<<<<<<< HEAD
 import Misc.DroneVideoListener;
+=======
+import Approach.ApproachAnalyzer;
+>>>>>>> malthe
 import Util.ImageViewer;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
@@ -8,10 +12,7 @@ import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
 import de.yadrone.base.video.ImageListener;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Pyke-Laptop on 19-04-2017.
@@ -20,7 +21,7 @@ public class StateTester {
 
     //public ApproachAnalyzer approachAnalyzer;
 
-    public static enum DroneStates {
+    enum DroneStates {
         SearchRing, SearchQR, Approach, Evaluation, Landing
     }
     @SuppressWarnings("Duplicates")
@@ -28,7 +29,7 @@ public class StateTester {
 
         CommandManager cmd = null;
         DroneVideoListener listener = null;
-        DroneAutoController droneController = null;
+
         IARDrone drone = null;
         try {
             drone = new ARDrone();
@@ -37,7 +38,6 @@ public class StateTester {
             //Remember to Toggle the camera on
             drone.toggleCamera();
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
-            drone.getCommandManager().setVideoCodecFps(15);
             //drone.getVideoManager().connect(1337);
             //System.out.println("drone is connected : "+drone.getVideoManager().connect(1337));
         } catch (Exception exc) {
@@ -47,8 +47,8 @@ public class StateTester {
             if (drone != null) {
 
                 cmd = drone.getCommandManager();
-                droneController = new DroneAutoController();
-                listener = new DroneVideoListener(drone, droneController);
+
+                listener = new DroneVideoListener(drone);
                 drone.getVideoManager().addImageListener(listener);
                 drone.getVideoManager().addImageListener(new ImageListener() {
                     @Override
@@ -59,10 +59,28 @@ public class StateTester {
                 });
             }
 
+<<<<<<< HEAD
             ImageViewer viewer = new ImageViewer();
             DroneStates droneStates;
             droneStates = DroneStates.SearchRing;
-
+            DroneAutoController droneController = new DroneAutoController();
+=======
+                case Approach:
+                    //ApproachAnalyzer analyzer = new ApproachAnalyzer();
+                    if (droneController.approach(image)) {// Hvis dronen succesfuldt har fløjet igennem ringen
+                        droneStates = DroneStates.Evaluation;
+                    }
+                    break;
+                    
+                case Evaluation:
+                    if (droneController.evaluate()) {        // Hvis der stadig er flere ubesøgte ringe tilbage
+                        droneStates = DroneStates.SeachQR;
+                    } else {                                // Hvis alle ringe er besøgt
+                        droneStates = DroneStates.Landing;
+                    }
+                    break;
+                case Landing:
+>>>>>>> malthe
 
             int speed = 5;
 
@@ -71,11 +89,25 @@ public class StateTester {
             while (true) {
                 System.out.println(droneStates.toString());
                 BufferedImage image = null;
-
+                //String imagepath = "Resources/newpictures/billlede" + i + ".png";
+                //i++;
+                //String imagepath = "Resources/qrcodes/qrcode(1).png";
+                /*
+                try {
+                    image = ImageIO.read(new File(imagepath));
+                    viewer.show(image);
+                    //1 fps pcmasterrace
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                */
                 switch (droneStates) {
                     case SearchRing:
                         if (droneController.searchRing(image, drone)) {
-                            droneStates = DroneStates.SearchQR;
+                            droneStates = DroneStates.SearchRing;
                         }
 
                         break;
@@ -103,8 +135,6 @@ public class StateTester {
                         break;
                 }
             }
-
         }
     }
-
 }

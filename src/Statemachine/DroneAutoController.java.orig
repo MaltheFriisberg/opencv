@@ -29,17 +29,11 @@ public class DroneAutoController implements IDroneState {
     public boolean searchRing(BufferedImage image, IARDrone drone) {
 
         cmd = drone.getCommandManager();
-<<<<<<< HEAD
         
         //cmd.takeOff().doFor(5000);
         //cmd.hover().doFor(500);
-=======
+        //cmd.landing();
 
-        /*cmd.takeOff().doFor(5000);
-        cmd.hover().doFor(500);
->>>>>>> 9b0c78f1712d48336badb7b61a6223cc9c664de3
-        cmd.landing();
-        */
 
         ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
 
@@ -52,7 +46,12 @@ public class DroneAutoController implements IDroneState {
                 // Ryk drone til venstre
                 System.out.println("Gå mod venstre");
 
+<<<<<<< HEAD
             } else if (circle.getY() < pictureHeight / 2 + deviation) {
+=======
+
+            } else if(circle.getY() < pictureHeight / 2 + deviation) {
+>>>>>>> malthe
                 // Ryk drone opad
                 System.out.println("Gå opad");
 

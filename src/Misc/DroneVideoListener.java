@@ -1,5 +1,6 @@
 package Misc;
 
+import Statemachine.DroneAutoController;
 import Util.ImageViewer;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.video.ImageListener;
@@ -19,8 +20,10 @@ public class DroneVideoListener implements ImageListener {
     private IARDrone drone;
     private int counter;
     //private BufferedImage img;
+    DroneAutoController droneAutoController;
 
-    public DroneVideoListener(IARDrone drone) {
+    public DroneVideoListener(IARDrone drone, DroneAutoController droneAutoController) {
+        this.droneAutoController = droneAutoController;
         this.drone = drone;
         this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
@@ -32,7 +35,9 @@ public class DroneVideoListener implements ImageListener {
     public void imageUpdated(BufferedImage bufferedImage) {
         counter++;
         if (counter % 30 == 0) {
+            droneAutoController.updateImage(bufferedImage);
             detectAndShowCircles(bufferedImage, this.imageViewer);
+
             //img = bufferedImage;
         }
     }
