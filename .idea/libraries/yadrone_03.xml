@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="yadrone_03">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/YaDrone/YADrone/android/libs/yadrone_03.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Modules/YADrone/android/libs/yadrone_03.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

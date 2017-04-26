@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="zxing">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/YaDrone/YADrone/lib/zxing/javase-2.2.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/YaDrone/YADrone/lib/zxing/core-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Modules/YADrone/lib/zxing/core-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Modules/YADrone/lib/zxing/javase-2.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

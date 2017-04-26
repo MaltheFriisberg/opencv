@@ -8,8 +8,19 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="libs" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="yadrone_03" level="project" />
     <orderEntry type="library" name="zxing" level="project" />
-    <orderEntry type="library" name="reflections" level="project" />
+    <orderEntry type="module" module-name="YADrone" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/opencv-3.2.0/build/bin/opencv-320.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Documents/opencv-3.2.0/build/bin/opencv-320.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
