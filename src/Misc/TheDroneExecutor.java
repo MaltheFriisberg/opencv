@@ -1,8 +1,9 @@
-/**
+package Misc; /**
  * Created by malthe on 3/15/17.
  */
 
 
+import Misc.DroneVideoListener;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
@@ -14,6 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class TheDroneExecutor {
 
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws InterruptedException
     {
         //PaperChase pc = new PaperChase();
@@ -38,7 +40,7 @@ public class TheDroneExecutor {
             if (drone != null)
             {
 
-
+//
                 CommandManager cmd = drone.getCommandManager();
 
                 DroneVideoListener listener = new DroneVideoListener(drone);

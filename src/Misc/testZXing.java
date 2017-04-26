@@ -1,3 +1,5 @@
+package Misc;
+
 import QRcode.QRCodeScannerGUI;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
