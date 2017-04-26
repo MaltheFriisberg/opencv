@@ -29,11 +29,17 @@ public class DroneAutoController implements IDroneState {
     public boolean searchRing(BufferedImage image, IARDrone drone) {
 
         cmd = drone.getCommandManager();
+<<<<<<< HEAD
         
         //cmd.takeOff().doFor(5000);
         //cmd.hover().doFor(500);
-        //cmd.landing();
+=======
 
+        /*cmd.takeOff().doFor(5000);
+        cmd.hover().doFor(500);
+>>>>>>> 9b0c78f1712d48336badb7b61a6223cc9c664de3
+        cmd.landing();
+        */
 
         ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
 
