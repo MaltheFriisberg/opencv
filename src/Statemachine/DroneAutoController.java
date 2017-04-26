@@ -1,3 +1,5 @@
+package Statemachine;
+
 import CircleDetection.CircleDetector;
 import Interfaces.IDroneState;
 import Util.ImageViewer;
@@ -21,7 +23,7 @@ public class DroneAutoController implements IDroneState {
     private final int pictureWidth = 640;
     private final int pictureHeight = 360;
 
-//public DroneAutoController(IARDrone drone) {this.drone = drone;}
+//public Statemachine.DroneAutoController(IARDrone drone) {this.drone = drone;}
 
     public boolean searchRing(BufferedImage image) {
 

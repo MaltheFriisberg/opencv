@@ -1,3 +1,5 @@
+package Statemachine;
+
 import Util.ImageViewer;
 
 import javax.imageio.ImageIO;
