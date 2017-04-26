@@ -1,3 +1,5 @@
+package Misc;
+
 import CircleDetection.CircleDetector;
 import Util.ImageViewer;
 import org.opencv.core.*;
