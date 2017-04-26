@@ -33,30 +33,33 @@ public class DroneAutoController implements IDroneState {
         //cmd.takeOff().doFor(5000);
         //cmd.hover().doFor(500);
         cmd.landing();
+        */
 
-        /*ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
+        ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
 
         if (circle.getRadius() != -1) {
             if (circle.getX() < pictureWidth / 2 + deviation) {
                 // Ryk drone til højre
+                System.out.println("Gå mod højre");
 
             } else if (circle.getX() > pictureWidth / 2 - deviation) {
                 // Ryk drone til venstre
+                System.out.println("Gå mod venstre");
 
             } else if (circle.getY() < pictureHeight / 2 + deviation) {
                 // Ryk drone opad
+                System.out.println("Gå opad");
 
             } else if (circle.getY() > pictureHeight / 2 - deviation) {
                 // Ryk drone nedad
-
+                System.out.println("Gå nedad");
             } else {
                 // Dronen er perfekt centreret
 
                 // Skift state til Approach
             }
-
-        }*/
-        return true;
+        }
+        return false;
     }
 
     @Override
