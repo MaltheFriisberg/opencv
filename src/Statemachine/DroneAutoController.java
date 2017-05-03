@@ -159,10 +159,10 @@ public class DroneAutoController implements IDroneState {
     @Override
     public void evaluate() {
 
-        if (nextPort > mapPortTotal) {
-            currentState = DroneStates.Landing;
-        } else {
+        if (nextPort == mapPortTotal) {
             currentState = DroneStates.SearchRing;
+        } else {
+            currentState = DroneStates.Landing;
         }
     }
 
