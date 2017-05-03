@@ -1,24 +1,15 @@
 package Statemachine;
 
-import CircleDetection.CircleDetector;
 import Interfaces.IDroneState;
 import Misc.DroneVideoListener;
-import Util.DroneStates;
-import Util.ImageViewer;
-import Util.QRScanner;
-import Util.ReturnCircle;
+import Util.*;
 import de.yadrone.base.ARDrone;
-import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
 
 import java.awt.image.BufferedImage;
 
 import static CircleDetection.CircleDetector.detectAndShowCircles;
-
-import static Util.DroneStates.Evaluation;
-import static Util.DroneStates.Landing;
-import static Util.DroneStates.SearchQR;
 
 /**
  * Created by malthe on 4/4/17.
@@ -28,11 +19,20 @@ public class DroneAutoController implements IDroneState {
     CommandManager commandManager;
     DroneVideoListener videoListener;
     QRScanner qrScanner;
+
     public int nextPort = 1;
+    private final int mapPortTotal = 6;
+
     BufferedImage image;
-    private final int deviation = 20;
+    private final int pictureDeviation = 20;
     private final int pictureWidth = 640;
     private final int pictureHeight = 360;
+
+    // Approach constants
+    private final int optimalCircleRadius = 30;
+    private final int optimalCircleRadiusDeviation = 10;
+    private ApproachStates approachStates;
+
     private boolean isRunning;
     private DroneStates currentState;
 
@@ -56,105 +56,119 @@ public class DroneAutoController implements IDroneState {
             //System.out.println(droneStates.toString());
             BufferedImage image = null;
             DroneStates state = DroneStates.Evaluation;
+
             switch (currentState) {
                 case SearchRing:
-                    if (searchRing(image)) {
-                        this.currentState = DroneStates.SearchQR;
-                    }
-
+                    searchRing(image);
                     break;
+
                 case SearchQR:
-                    if (searchQR(image)) {          // Hvis QR kode findes og er korrekt i forhold til rækkefølgen
-                        this.currentState = DroneStates.Approach;
-                    }
+                    searchQR(image);
                     break;
 
                 case Approach:
-                    if (approach(image)) {        // Hvis dronen succesfuldt har fløjet igennem ringen
-                        this.currentState = DroneStates.Evaluation;
-                    }
+                    approach(image);
                     break;
 
                 case Evaluation:
-                    if (evaluate()) {        // Hvis der stadig er flere ubesøgte ringe tilbage
-                        this.currentState = DroneStates.SearchQR;
-                    } else {                                // Hvis alle ringe er besøgt
-                        this.currentState = DroneStates.Landing;
-                    }
+                    evaluate();
                     break;
-                case Landing:
 
+                case Landing:
+                    landing();
                     break;
             }
         }
     }
 
-    public boolean searchRing(BufferedImage image) {
+    public void searchRing(BufferedImage image) {
 
         ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
 
         if (circle.getRadius() != -1) {
-            if (circle.getX() < pictureWidth / 2 + deviation) {
+            if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
                 // Ryk drone til højre
                 System.out.println("Gå mod højre");
 
-            } else if (circle.getX() > pictureWidth / 2 - deviation) {
+            } else if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
                 // Ryk drone til venstre
                 System.out.println("Gå mod venstre");
 
 
-            } else if (circle.getY() < pictureHeight / 2 + deviation) {
-                // Ryk drone opad
-                System.out.println("Gå opad");
-
-            } else if (circle.getY() > pictureHeight / 2 - deviation) {
+            } else if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
                 // Ryk drone nedad
                 System.out.println("Gå nedad");
+
+            } else if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
+                // Ryk drone opad
+                System.out.println("Gå opad");
             } else {
                 // Dronen er perfekt centreret
-
                 // Skift state til Approach
+                currentState = DroneStates.Approach;
             }
-
         }
-
-
-        return false;
     }
 
     @Override
-    public boolean searchQR(BufferedImage image) {
+    public void searchQR(BufferedImage image) {
 
         //this.drone.getCommandManager().hover();
         //turn 360 and look for circles.cr codes
         String temp = qrScanner.getQRCode(image);
         System.out.println("QR Code: " + temp);
         if (temp.equals("P.0" + Integer.toString(nextPort))) {
-            nextPort++;
-            return true;
-        } else {
-            return false;
+            currentState = DroneStates.SearchRing;
         }
     }
 
     @Override
-    public boolean approach(BufferedImage image) {
-        //fly towards the object
-        // this.drone.getCommandManager().doFor(1000).forward(2);
-        return false;
+    public void approach(BufferedImage image) {
+
+        ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
+
+        if (circle.getRadius() != -1) {
+            approachStates = ApproachStates.CircleFound;
+        } else {
+            approachStates = ApproachStates.CircleNotFound;
+        }
+
+        switch (approachStates) {
+            case CircleFound:
+                if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
+                    // Flyv tættere på
+
+                } else if (circle.getRadius() < optimalCircleRadius - pictureDeviation) { // Dronen er for tæt på cirklen
+                    // Flyv længere væk
+                } else { // Dronen har den perfekte afstand til cirklen
+                    approachStates = ApproachStates.FlyThrough;
+                }
+                break;
+            case CircleNotFound:
+                // Flyv op og ned og drej for at finde cirkel??? (Den burde være der, da den ellers ikke ville skifte til approach state)
+                break;
+            case FlyThrough:
+                // Flyv ligeud og fortsæt i x sekunder..
+                currentState = DroneStates.Evaluation;
+                nextPort++;
+                break;
+        }
+
     }
 
     @Override
-    public boolean evaluate() {
-        //boolean isCirclesInSight = detectAndShowCircles();
-        //boolean isQRcodeInSight =
-        return false;
+    public void evaluate() {
+
+        if (nextPort > mapPortTotal) {
+            currentState = DroneStates.Landing;
+        } else {
+            currentState = DroneStates.SearchRing;
+        }
     }
 
     @Override
-    public boolean landing() {
+    public void landing() {
         // this.drone.getCommandManager().landing();
-        return false;
     }
 
     public void updateImage(BufferedImage image) {
