@@ -46,9 +46,6 @@ public class QRCodeScannerGUI extends JFrame implements ImageListener, TagListen
     public QRCodeScannerGUI()
     {
         super("");
-
-
-
         //createMenuBar();
 
         setSize(PaperChase.IMAGE_WIDTH, PaperChase.IMAGE_HEIGHT);
