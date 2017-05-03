@@ -24,6 +24,7 @@ public class TheDroneExecutor {
         {
             drone = new ARDrone();
             drone.start();
+
             System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
             //Remember to Toggle the camera on
             drone.toggleCamera();
@@ -33,6 +34,7 @@ public class TheDroneExecutor {
         }
         catch (Exception exc)
         {
+            System.out.println("exception");
             exc.printStackTrace();
         }
         finally
@@ -41,18 +43,7 @@ public class TheDroneExecutor {
             {
 
 //
-                CommandManager cmd = drone.getCommandManager();
 
-                DroneVideoListener listener = new DroneVideoListener(drone);
-                drone.getVideoManager().addImageListener(listener);
-                drone.getVideoManager().addImageListener(new ImageListener() {
-                    @Override
-                    public void imageUpdated(BufferedImage bufferedImage) {
-                        int j = 0;
-                        int x = 0;
-
-                    }
-                });
                 //cmd.ca
                 int speed = 5; // percentage of max speed
 
@@ -60,7 +51,7 @@ public class TheDroneExecutor {
 
                 //cmd.takeOff().doFor(5000);
                 //cmd.hover().doFor(10000);
-
+                //cmd.hover();
                 //cmd.goLeft(speed).doFor(1000);
                 //cmd.hover().doFor(10000);
 
