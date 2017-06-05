@@ -125,14 +125,14 @@ public class DroneAutoController implements IDroneState {
         ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
 
         if (circle.getRadius() != -1) {
-            approachStates = ApproachStates.CircleFound;
+            approachStates = ApproachStates.CircleLineUp;
         } else {
             currentState = DroneStates.SearchRing;
         }
 
         switch (approachStates) {
 
-            case CircleFound:
+            case CircleLineUp:
                 if (circle.getRadius() != -1) {
                     if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
                         // Ryk drone til højre
