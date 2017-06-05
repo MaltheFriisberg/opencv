@@ -52,14 +52,13 @@ public class DroneAutoController implements IDroneState {
         this.drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
         this.commandManager = drone.getCommandManager();
         this.commandManager.setMaxAltitude(MAXALTITUDE);
-        this.videoListener = new DroneVideoListener(this);
+        this.videoListener = new DroneVideoListener(this, drone);
         this.drone.getVideoManager().addImageListener(this.videoListener);
         this.qrScanner = new QRScanner();
-        this.drone.start();
     }
 
     public void start() {
-
+        this.drone.start();
         this.isRunning = true;
         this.currentState = DroneStates.SearchRing;
         QRValid = false;
@@ -70,10 +69,6 @@ public class DroneAutoController implements IDroneState {
             switch (currentState) {
                 case SearchRing:
                     searchRing(image);
-                    break;
-
-                case SearchQR:
-                    searchQR(image);
                     break;
 
                 case Approach:
@@ -124,7 +119,6 @@ public class DroneAutoController implements IDroneState {
             drone.up();
             drone.hover();
         }
-        currentState = DroneStates.Approach;
     }
 
     @Override

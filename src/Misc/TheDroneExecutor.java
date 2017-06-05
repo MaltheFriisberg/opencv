@@ -20,10 +20,13 @@ public class TheDroneExecutor {
     public static void main(String[] args) throws InterruptedException
     {
         //PaperChase pc = new PaperChase();
-        ARDrone drone = null;
+        ARDrone drone = new ARDrone();
+        DroneAutoController droneAutoController = new DroneAutoController(drone);
+        droneAutoController.start();
+
+        /*
         try
         {
-            drone = new ARDrone();
             drone.start();
 
             System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
@@ -32,7 +35,6 @@ public class TheDroneExecutor {
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
             drone.getVideoManager().connect(1337);
             System.out.println("drone is connected : "+drone.getVideoManager().connect(1337));
-            DroneAutoController droneAutoController = new DroneAutoController(drone);
         }
         catch (Exception exc)
         {
@@ -43,9 +45,6 @@ public class TheDroneExecutor {
         {
             if (drone != null  )
             {
-
-
-
 
             //
 
@@ -73,6 +72,7 @@ public class TheDroneExecutor {
             //drone.stop();
             //System.exit(0);
         }
+        */
     }
 
 }
