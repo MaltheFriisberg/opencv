@@ -20,9 +20,11 @@ public class DroneAutoController implements IDroneState {
     DroneVideoListener videoListener;
     QRScanner qrScanner;
 
+    // Ring manager
     public int nextPort = 1;
     private final int mapPortTotal = 6;
 
+    // Line up konstanter
     private BufferedImage image;
     private final int pictureDeviation = 20;
     private final int pictureWidth = 640;
@@ -33,10 +35,14 @@ public class DroneAutoController implements IDroneState {
     // Approach constants
     private final int optimalCircleRadius = 90;
     private final int optimalCircleRadiusDeviation = 10;
+
+    // Statemachines
+    private DroneStates currentState;
     private ApproachStates approachStates;
 
+    // Andet
     private boolean isRunning;
-    private DroneStates currentState;
+    private boolean QRValid = false;
 
     public DroneAutoController(ARDrone drone) {
         this.drone = drone;
@@ -56,6 +62,7 @@ public class DroneAutoController implements IDroneState {
 
         this.isRunning = true;
         this.currentState = DroneStates.SearchRing;
+        QRValid = false;
         while (isRunning) {
             //System.out.println(droneStates.toString());
             DroneStates state = DroneStates.Evaluation;
@@ -110,6 +117,7 @@ public class DroneAutoController implements IDroneState {
             System.out.println("QR Code: " + temp);
             if (temp.equals("P.0" + Integer.toString(nextPort))) {
                 QRCodeFound = true;
+                QRValid = true;
             }
         }
         for (int i = 0; i < QRCodeCounter; i++){
@@ -163,7 +171,11 @@ public class DroneAutoController implements IDroneState {
                         drone.forward();
                         drone.hover();
                     } else {
-                        approachStates = ApproachStates.FlyThrough;
+                        if(QRValid == true) {
+                            approachStates = ApproachStates.FlyThrough;
+                        } else {
+                            searchQR(image);
+                        }
                     }
                 }
                 break;
