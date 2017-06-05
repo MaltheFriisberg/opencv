@@ -39,11 +39,10 @@ public class TheDroneExecutor {
         }
         finally
         {
-            if (drone != null)
+            if (drone != null  )
             {
-
-//
-
+            //
+                drone.goRight();
                 //cmd.ca
                 int speed = 5; // percentage of max speed
                 //drone.getCommandManager().setMaxAltitude(3000);
