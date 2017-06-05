@@ -46,7 +46,7 @@ public class TheDroneExecutor {
 
                 //cmd.ca
                 int speed = 5; // percentage of max speed
-
+                //drone.getCommandManager().setMaxAltitude(3000);
                 //cmd.hover().doFor(50000);
 
                 //cmd.takeOff().doFor(5000);
