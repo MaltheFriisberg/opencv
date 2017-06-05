@@ -1,5 +1,5 @@
 package Util;
 
 public enum ApproachStates {
-    CircleNotFound, CircleFound, FlyThrough
+    CircleNotFound, CircleLineUp, FlyThrough
 }
