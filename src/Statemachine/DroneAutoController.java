@@ -47,7 +47,7 @@ public class DroneAutoController implements IDroneState {
         this.drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
         this.commandManager = drone.getCommandManager();
         this.commandManager.setMaxAltitude(MAXALTITUDE);
-        this.videoListener = new DroneVideoListener(this);
+        this.videoListener = new DroneVideoListener(this, this.drone);
         this.drone.getVideoManager().addImageListener(this.videoListener);
         this.qrScanner = new QRScanner();
     }
@@ -198,6 +198,7 @@ public class DroneAutoController implements IDroneState {
     }
 
     public void updateImage(BufferedImage image) {
+        System.out.println(currentState);
         this.image = image;
     }
 

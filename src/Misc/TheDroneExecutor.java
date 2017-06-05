@@ -4,6 +4,7 @@ package Misc; /**
 
 
 import Misc.DroneVideoListener;
+import Statemachine.DroneAutoController;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
@@ -18,7 +19,11 @@ public class TheDroneExecutor {
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws InterruptedException
     {
-        //PaperChase pc = new PaperChase();
+        ARDrone drone = new ARDrone();
+        DroneAutoController controller = new DroneAutoController(drone);
+        controller.start();
+        controller.landing();
+        /*
         IARDrone drone = null;
         try
         {
@@ -72,7 +77,8 @@ public class TheDroneExecutor {
             }
             //drone.stop();
             //System.exit(0);
-        }
+        }*/
+
     }
 
 }
