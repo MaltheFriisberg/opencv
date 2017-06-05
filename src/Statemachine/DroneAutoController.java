@@ -46,7 +46,6 @@ public class DroneAutoController implements IDroneState {
 
     public DroneAutoController(ARDrone drone) {
         this.drone = drone;
-        this.drone.start();
         image = null;
         System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
         this.drone.toggleCamera();
@@ -56,6 +55,7 @@ public class DroneAutoController implements IDroneState {
         this.videoListener = new DroneVideoListener(this);
         this.drone.getVideoManager().addImageListener(this.videoListener);
         this.qrScanner = new QRScanner();
+        this.drone.start();
     }
 
     public void start() {

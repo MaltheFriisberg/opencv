@@ -4,6 +4,7 @@ package Misc; /**
 
 
 import Misc.DroneVideoListener;
+import Statemachine.DroneAutoController;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
@@ -19,7 +20,7 @@ public class TheDroneExecutor {
     public static void main(String[] args) throws InterruptedException
     {
         //PaperChase pc = new PaperChase();
-        IARDrone drone = null;
+        ARDrone drone = null;
         try
         {
             drone = new ARDrone();
@@ -29,8 +30,9 @@ public class TheDroneExecutor {
             //Remember to Toggle the camera on
             drone.toggleCamera();
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
-            //drone.getVideoManager().connect(1337);
-            //System.out.println("drone is connected : "+drone.getVideoManager().connect(1337));
+            drone.getVideoManager().connect(1337);
+            System.out.println("drone is connected : "+drone.getVideoManager().connect(1337));
+            DroneAutoController droneAutoController = new DroneAutoController(drone);
         }
         catch (Exception exc)
         {
@@ -41,10 +43,11 @@ public class TheDroneExecutor {
         {
             if (drone != null  )
             {
+
+
+
+
             //
-                drone.goRight();
-                //cmd.ca
-                int speed = 5; // percentage of max speed
 
                 //cmd.hover().doFor(50000);
 
@@ -66,9 +69,6 @@ public class TheDroneExecutor {
 
 
                 //cmd.landing();
-            }
-            while(true) {
-
             }
             //drone.stop();
             //System.exit(0);
