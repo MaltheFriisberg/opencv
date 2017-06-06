@@ -27,7 +27,7 @@ public class CircleDetector {
 
         Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
         //Imgproc.GaussianBlur(gray, blurred, new Size(11,11),0);
-        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 30, 0 );
+        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 50, 0 );
         //System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
         double x = 0.0;
         double y = 0.0;
@@ -44,7 +44,7 @@ public class CircleDetector {
             }
             Point imageCenter = new Point(320,180);
             Point center = new Point(x, y);
-            System.out.println("ImageCenter calculated to "+center);
+            // System.out.println("ImageCenter calculated to "+center);
             pointFeaturesToCircleCenter(image, center);
 
             //Image center
@@ -67,8 +67,7 @@ public class CircleDetector {
                 biggestCircle = new ReturnCircle(circleArray[i]);
             }
         }
-
-        return biggestCircle;
+            return biggestCircle;
     }
 
     public static MatOfPoint pointFeaturesToCircleCenter(Mat image, Point center) {

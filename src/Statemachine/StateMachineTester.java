@@ -7,6 +7,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 import javax.imageio.ImageIO;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,17 +32,21 @@ public class StateMachineTester {
     static final int lineUpSpeed = 10;
     static final int optimalCircleRadius = 120;
     static final int optimalCircleRadiusDeviation = 10;
+    static int counter = 0;
 
     public static void main(String[] args) {
         Mat mat = new Mat();
         BufferedImage image;
-        for (int i = 141; i <1000; i++) {
-            String imagepath = "Resources/billed/image"+i+".jpg";
+        for (int i = 500; i < 1000; i++) {
+            counter = 0;
+            String imagepath = "Resources/billed/image" + i + ".jpg";
+            //String imagepath = "Resources/newpictures/billlede" + i + ".png";
             //String imagepath = "Resources/qrcodes/qrcode.png";
 
             try {
                 image = ImageIO.read(new File(imagepath));
                 centerDroneToRing(detectAndShowCircles(image, viewer));
+                System.out.println("----------------");
 
                 //1 fps pcmasterrace
                 Thread.sleep(500);
@@ -56,32 +61,43 @@ public class StateMachineTester {
 
     public static void centerDroneToRing(ReturnCircle circle) {
         if (circle.getRadius() != -1) {
-            if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
-                // Ryk drone til venstre
-                System.out.println("Ryk til venstre");
 
-            } if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
-                // Ryk drone til højre
-                System.out.println("Ryk til højre");
+            //System.out.println(circle.getRadius());
 
-            }  if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
-                // Ryk drone opad
-                System.out.println("Ryk opad");
-
-            }  if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
-                // Ryk drone opad
-                System.out.println("Ryk nedad");
-
-            }  if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
+            if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
                 // Flyv tættere på
                 System.out.println("Ryk længere væk");
+                counter++;
 
             } if (circle.getRadius() < optimalCircleRadius - pictureDeviation) { // Dronen er for tæt på cirklen
                 // Flyv længere væk
                 System.out.println("Ryk tættere på");
+                counter++;
 
-            } else {
-                System.out.println("Dronen er center!");
+            } if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
+                // Ryk drone til venstre
+                System.out.println("Ryk til venstre");
+                counter++;
+
+            } if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
+                // Ryk drone til højre
+                System.out.println("Ryk til højre");
+                counter++;
+
+            }  if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
+                // Ryk drone opad
+                System.out.println("Ryk opad");
+                counter++;
+
+            }  if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
+                // Ryk drone opad
+                System.out.println("Ryk nedad");
+                counter++;
+
+            }
+
+            if(counter == 0) {
+                System.out.println("Dronen er centreret!");
             }
         }
     }

@@ -206,6 +206,7 @@ public class DroneAutoController implements IDroneState {
                 drone.down();
                 //commandManager.up(lineUpSpeed);
                 drone.hover();
+
             } else {
                 if (QRValid == true) {
                     approachStates = ApproachStates.FlyThrough;
