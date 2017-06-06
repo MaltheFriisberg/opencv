@@ -30,8 +30,8 @@ public class testOpenCV {
     public static void main(String[] args) {
         Mat mat = new Mat();
         BufferedImage image;
-        for (int i = 3600; i <3900; i++) {
-            String imagepath = "Resources/newpictures/billlede" + i + ".png";
+        for (int i = 141; i <643; i++) {
+            String imagepath = "Resources/billed/image"+i+".jpg";
             //String imagepath = "Resources/qrcodes/qrcode.png";
 
             try {

@@ -33,8 +33,6 @@ public class DroneAutoController implements IDroneState {
     private final long FLYFORWARDCONST = 100000;
     private final int MAXALTITUDE = 3000; //3 meters
     private final int lineUpSpeed = 10;
-
-    // Approach constants
     private final int optimalCircleRadius = 90;
     private final int optimalCircleRadiusDeviation = 10;
 
@@ -59,7 +57,7 @@ public class DroneAutoController implements IDroneState {
         this.qrScanner = new QRScanner();
     }
 
-    public void start() {
+    public void startStateMachine() {
         this.drone.start();
         this.isRunning = true;
         this.currentState = DroneStates.SearchRing;
@@ -99,7 +97,6 @@ public class DroneAutoController implements IDroneState {
             drone.spinRight();
             drone.hover();
         }
-
     }
 
     @Override
@@ -171,44 +168,45 @@ public class DroneAutoController implements IDroneState {
     public void landing() {
         // this.drone.getCommandManager().landing();
         drone.landing();
+        isRunning = false;
     }
 
     public void centerDroneToRing(ReturnCircle circle) {
         if (circle.getRadius() != -1) {
-            if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
-                // Ryk drone til højre
-                drone.goRight();
-                //commandManager.goRight(lineUpSpeed);
-                drone.hover();
 
-            } else if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
-                // Ryk drone til venstre
-                drone.goLeft();
-                //commandManager.goLeft(lineUpSpeed);
-                drone.hover();
-
-            } else if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
-                // Ryk drone nedad
-                drone.down();
-                //commandManager.down(lineUpSpeed);
-                drone.hover();
-
-            } else if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
-                // Ryk drone opad
-                drone.up();
-                //commandManager.up(lineUpSpeed);
-                drone.hover();
-
-            } else if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
-                // Flyv tættere på
+            if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
+                // Flyv længere væk
                 drone.backward();
                 drone.hover();
 
             } else if (circle.getRadius() < optimalCircleRadius - pictureDeviation) { // Dronen er for tæt på cirklen
-                // Flyv længere væk
+                // Flyv tættere på
                 drone.forward();
                 drone.hover();
 
+            } else if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
+                // Ryk drone til venstre
+                drone.goLeft();
+                //commandManager.goRight(lineUpSpeed);
+                drone.hover();
+
+            } else if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
+                // Ryk drone til højre
+                drone.goRight();
+                //commandManager.goLeft(lineUpSpeed);
+                drone.hover();
+
+            } else if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
+                // Ryk drone opad
+                drone.up();
+                //commandManager.down(lineUpSpeed);
+                drone.hover();
+
+            } else if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
+                // Ryk drone nedad
+                drone.down();
+                //commandManager.up(lineUpSpeed);
+                drone.hover();
             } else {
                 if (QRValid == true) {
                     approachStates = ApproachStates.FlyThrough;
