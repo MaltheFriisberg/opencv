@@ -150,7 +150,6 @@ public class DroneAutoController implements IDroneState {
                 nextPort++;
                 QRValid = false;
                 break;
-
         }
     }
 
