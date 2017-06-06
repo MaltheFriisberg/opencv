@@ -4,6 +4,7 @@ import Interfaces.IDroneState;
 import Misc.DroneVideoListener;
 import Util.*;
 import de.yadrone.base.ARDrone;
+import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
 
@@ -15,7 +16,7 @@ import static CircleDetection.CircleDetector.detectAndShowCircles;
  * Created by malthe on 4/4/17.
  */
 public class DroneAutoController implements IDroneState {
-    ARDrone drone;
+    IARDrone drone;
     CommandManager commandManager;
     DroneVideoListener videoListener;
     QRScanner qrScanner;
@@ -38,7 +39,7 @@ public class DroneAutoController implements IDroneState {
     private boolean isRunning;
     private DroneStates currentState;
 
-    public DroneAutoController(ARDrone drone) {
+    public DroneAutoController(IARDrone drone) {
         this.drone = drone;
         this.drone.start();
         image = null;

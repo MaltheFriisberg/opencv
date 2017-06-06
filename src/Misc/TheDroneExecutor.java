@@ -19,65 +19,19 @@ public class TheDroneExecutor {
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws InterruptedException
     {
-        ARDrone drone = new ARDrone();
-        DroneAutoController controller = new DroneAutoController(drone);
-        controller.start();
-        controller.landing();
-        /*
-        IARDrone drone = null;
-        try
-        {
-            drone = new ARDrone();
-            drone.start();
+        IARDrone drone = new ARDrone();
 
-            System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
-            //Remember to Toggle the camera on
-            drone.toggleCamera();
-            drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
-            //drone.getVideoManager().connect(1337);
-            //System.out.println("drone is connected : "+drone.getVideoManager().connect(1337));
-        }
-        catch (Exception exc)
-        {
-            System.out.println("exception");
-            exc.printStackTrace();
-        }
-        finally
-        {
-            if (drone != null  )
-            {
-            //
-                drone.goRight();
-                //cmd.ca
-                int speed = 5; // percentage of max speed
-                //drone.getCommandManager().setMaxAltitude(3000);
-                //cmd.hover().doFor(50000);
+        drone.start();
 
-                //cmd.takeOff().doFor(5000);
-                //cmd.hover().doFor(10000);
-                //cmd.hover();
-                //cmd.goLeft(speed).doFor(1000);
-                //cmd.hover().doFor(10000);
+        drone.takeOff();
 
-                //cmd.goRight(speed).doFor(1000);
-                //cmd.hover().doFor(10000);
-
-                //cmd.forward(speed).doFor(2000);
-                //cmd.hover().doFor(10000);
-
-                //cmd.backward(speed).doFor(2000);
-                //cmd.hover().doFor(10000);
+        //drone.hover();
 
 
 
-                //cmd.landing();
-            }
-            while(true) {
+        drone.getCommandManager().hover().doFor(1000000);
 
-            }
-            //drone.stop();
-            //System.exit(0);
-        }*/
+        drone.landing();
 
     }
 
