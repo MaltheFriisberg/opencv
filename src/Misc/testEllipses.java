@@ -17,13 +17,15 @@ public class testEllipses {
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     public static void main(String[] args) {
         ImageViewer viewer = new ImageViewer();
+        ImageViewer viewer2 = new ImageViewer();
         String filepath = "Resources/ellipses/ellipses.gif";
 
         BufferedImage image;
 
         try {
             image = ImageIO.read(new File(filepath));
-            viewer.show(detectAndShowElipses(image));
+            viewer.show(image);
+            viewer2.show(detectAndShowElipses(image));
         } catch (IOException e) {
             e.printStackTrace();
         }

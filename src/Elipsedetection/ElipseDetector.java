@@ -3,8 +3,10 @@ package Elipsedetection;
 import Util.ImageConverter;
 import org.opencv.core.Mat;
 import org.opencv.core.*;
+import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,6 @@ public class ElipseDetector {
                 minEllipse[i] = Imgproc.fitEllipse( Mat(contours[i]) ); }
         }*/
 
-
         // if any contour exist...
         if (hierarchy.size().height > 0 && hierarchy.size().width > 0)
         {
@@ -62,8 +63,5 @@ public class ElipseDetector {
 
         }
         return image;
-
-
-
     }
 }

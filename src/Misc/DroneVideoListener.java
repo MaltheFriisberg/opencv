@@ -28,7 +28,6 @@ public class DroneVideoListener implements ImageListener {
         this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
         this.openCV = new testOpenCV();
-
     }
 
     @Override
