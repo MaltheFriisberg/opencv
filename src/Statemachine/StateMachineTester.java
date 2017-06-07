@@ -37,7 +37,7 @@ public class StateMachineTester {
     public static void main(String[] args) {
         Mat mat = new Mat();
         BufferedImage image;
-        for (int i = 500; i < 1000; i++) {
+        for (int i = 200; i < 201; i++) {
             counter = 0;
             String imagepath = "Resources/billed/image" + i + ".jpg";
             //String imagepath = "Resources/newpictures/billlede" + i + ".png";
