@@ -14,6 +14,7 @@ import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 
+import static CircleDetection.CircleDetector.convertToRedHsv;
 import static CircleDetection.CircleDetector.detectAndShowCircles;
 import static Util.ImageConverter.bufferedImageToMat;
 import static org.opencv.imgproc.Imgproc.circle;
@@ -28,17 +29,22 @@ public class testOpenCV {
 
 
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
-    public static ImageViewer viewer = new ImageViewer();
+    //public static ImageViewer viewer = new ImageViewer();
     public static void main(String[] args) {
+
         Mat mat = new Mat();
         BufferedImage image;
-        for (int i = 141; i <643; i++) {
-            String imagepath = "Resources/billed/image"+i+".jpg";
+        ImageViewer viewer = new ImageViewer();
+
+        for (int i = 0; i <3818; i++) {
+            String imagepath = "Resources/newpictures/billlede"+i+".png";
             //String imagepath = "Resources/qrcodes/qrcode.png";
 
             try {
                 image = ImageIO.read(new File(imagepath));
                 detectAndShowCircles(image, viewer);
+                //Mat red = convertToRedHsv(image);
+                //viewer.show(red);
 
                 //1 fps pcmasterrace
                 Thread.sleep(200);
@@ -48,6 +54,18 @@ public class testOpenCV {
                 e.printStackTrace();
             }
         }
+
+        //BufferedImage image;
+        /*String imagepath = "Resources/newpictures/IMG_20170607_104612.jpg";
+
+        try {
+            image = ImageIO.read(new File(imagepath));
+            detectAndShowCircles(image, viewer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
 
         }
 

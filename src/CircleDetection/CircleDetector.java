@@ -1,10 +1,7 @@
 package CircleDetection;
 
 import Util.ReturnCircle;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
+import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
 import java.awt.image.BufferedImage;
@@ -27,10 +24,17 @@ public class CircleDetector {
             //Mat blurred = new Mat();
             Mat circles = new Mat();
 
-            Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
+            Mat red = convertToRedHsv(img);
+
+            //Imgproc.cvtColor(red, gray, Imgproc.COLOR_BGR2GRAY);
+
+            //Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
             //Imgproc.GaussianBlur(gray, blurred, new Size(11,11),0);
-            Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 30, 0 );
-            //System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
+            viewer.show(red);
+            //Imgproc.HoughCircles(red, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 30, 0 );
+            Imgproc.HoughCircles(red, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 8, 100, 20, 0, 0 );
+            //System.out.
+            //println("#rows " + circles.rows() + " #cols " + circles.cols());
             double x = 0.0;
             double y = 0.0;
             int r = 0;
@@ -47,17 +51,17 @@ public class CircleDetector {
                 Point imageCenter = new Point(320,180);
                 Point center = new Point(x, y);
                 System.out.println("ImageCenter calculated to "+center);
-                pointFeaturesToCircleCenter(image, center);
+                //pointFeaturesToCircleCenter(red, center);
 
                 //Image center
 
-                circle(image, imageCenter, 6, new Scalar(255,255,255));
+                circle(red, imageCenter, 6, new Scalar(255,255,255));
 
                 // circle center
-                circle(image, center, 3, new Scalar(0, 255, 0), -1);
+                circle(red, center, 3, new Scalar(0, 255, 0), -1);
                 // circle outline
-                circle(image, center, r, new Scalar(0, 0, 255), 1);
-                viewer.show(image);
+                circle(red, center, r, new Scalar(0, 0, 255), 1);
+                viewer.show(red);
 
                 //Core.
             }
@@ -95,6 +99,35 @@ public class CircleDetector {
         //rectangle(image, new Point(cornerpoints[0].x, cornerpoints[0].y), new Point(cornerpoints[1].x, cornerpoints[1].y), new Scalar(255, 255, 0));
         //Imgproc.goodFeaturesToTrack();
         return corners;
+    }
+
+    public static Mat convertToRedHsv(BufferedImage img) {
+
+        Mat image = bufferedImageToMat(img);
+
+        Mat hsv_image = new Mat();
+        Imgproc.cvtColor(image, hsv_image, Imgproc.COLOR_BGR2HSV);
+
+        Mat lower_red_hue_range = new Mat();
+        Mat upper_red_hue_range = new Mat();
+
+        Core.inRange(hsv_image, new Scalar(0, 100, 100), new Scalar(10, 255, 255), lower_red_hue_range);
+        Core.inRange(hsv_image, new Scalar(160, 100, 100), new Scalar(179, 255, 255), upper_red_hue_range);
+
+
+        //Core.inRange(hsv_image, new Scalar(5,50,50), new Scalar(15, 255, 255), lower_red_hue_range);
+        //Core.inRange(hsv_image, new Scalar(5, 100, 100), new Scalar(5, 255, 255), lower_red_hue_range);
+        //Core.inRange(hsv_image, new Scalar(160, 200, 200), new Scalar(179, 255, 255), upper_red_hue_range);
+
+
+        Mat red_hue_image = new Mat();
+        Core.addWeighted(lower_red_hue_range, 1.0, upper_red_hue_range, 1.0, 0.0, red_hue_image);
+
+        //Imgproc.GaussianBlur(red_hue_image, red_hue_image, new Size(9,9), 2,2);
+
+        return red_hue_image;
+
+
     }
 
 }
