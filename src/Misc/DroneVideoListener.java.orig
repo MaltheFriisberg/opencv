@@ -23,29 +23,24 @@ public class DroneVideoListener implements ImageListener {
     //private BufferedImage img;
     DroneAutoController droneAutoController;
 
-<<<<<<< HEAD
     public DroneVideoListener(DroneAutoController droneAutoController, ARDrone drone) {
-=======
-    public DroneVideoListener(DroneAutoController droneAutoController, IARDrone drone) {
->>>>>>> malthe
         this.droneAutoController = droneAutoController;
         this.drone = drone;
         this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
         this.openCV = new testOpenCV();
+
     }
 
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
-
         counter++;
         if (counter % 30 == 0) {
+            droneAutoController.updateImage(bufferedImage);
 <<<<<<< HEAD
-            droneAutoController.updateStateMachine(bufferedImage);
             detectAndShowCircles(bufferedImage, this.imageViewer);
             counter = 0;
 =======
-            droneAutoController.updateImage(bufferedImage);
             //detectAndShowCircles(bufferedImage, this.imageViewer);
 
 >>>>>>> malthe

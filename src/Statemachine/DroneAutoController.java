@@ -5,6 +5,7 @@ import Interfaces.IDroneState;
 import Misc.DroneVideoListener;
 import Util.*;
 import de.yadrone.base.ARDrone;
+import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
 
@@ -17,8 +18,13 @@ import static CircleDetection.CircleDetector.detectCircles;
  * Created by malthe on 4/4/17.
  */
 public class DroneAutoController implements IDroneState {
+<<<<<<< HEAD
     ARDrone drone = null;
     CommandManager cmd;
+=======
+    IARDrone drone;
+    CommandManager commandManager;
+>>>>>>> malthe
     DroneVideoListener videoListener;
     QRScanner qrScanner;
     private int speed = 30;
@@ -75,7 +81,11 @@ public class DroneAutoController implements IDroneState {
             exc.printStackTrace();
         }
 
+<<<<<<< HEAD
         /*
+=======
+    public DroneAutoController(IARDrone drone) {
+>>>>>>> malthe
         this.drone = drone;
         autoControllerImage = null;
         System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
@@ -83,7 +93,11 @@ public class DroneAutoController implements IDroneState {
         this.drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
         this.commandManager = drone.getCommandManager();
         this.commandManager.setMaxAltitude(MAXALTITUDE);
+<<<<<<< HEAD
         this.videoListener = new DroneVideoListener(this, drone);
+=======
+        this.videoListener = new DroneVideoListener(this, this.drone);
+>>>>>>> malthe
         this.drone.getVideoManager().addImageListener(this.videoListener);
         */
 
@@ -248,6 +262,7 @@ public class DroneAutoController implements IDroneState {
         isRunning = false;
     }
 
+<<<<<<< HEAD
     public void centerDroneToRing(ReturnCircle circle, BufferedImage image) {
         if (circle.getRadius() != -1) {
 
@@ -327,6 +342,11 @@ public class DroneAutoController implements IDroneState {
                 }
             }
         }
+=======
+    public void updateImage(BufferedImage image) {
+        System.out.println(currentState);
+        this.image = image;
+>>>>>>> malthe
     }
 
     //public void updateImage(BufferedImage image) {

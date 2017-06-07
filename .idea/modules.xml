@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Pyke-Laptop\Desktop\opencv\Modules\Modules.iml" filepath="C:\Users\Pyke-Laptop\Desktop\opencv\Modules\Modules.iml" />
-      <module fileurl="file://C:\Users\Pyke-Laptop\Desktop\opencv\OpenCV.iml" filepath="C:\Users\Pyke-Laptop\Desktop\opencv\OpenCV.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Modules/YADrone/YADrone.iml" filepath="$PROJECT_DIR$/Modules/YADrone/YADrone.iml" />
-      <module fileurl="file://C:\Users\Pyke-Laptop\Desktop\opencv\Modules\YADrone\YADrone.iml" filepath="C:\Users\Pyke-Laptop\Desktop\opencv\Modules\YADrone\YADrone.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/YADrone/YADrone/YADrone.iml" filepath="$USER_HOME$/Downloads/YADrone/YADrone/YADrone.iml" />
       <module fileurl="file://$PROJECT_DIR$/opencv.iml" filepath="$PROJECT_DIR$/opencv.iml" />
     </modules>
   </component>

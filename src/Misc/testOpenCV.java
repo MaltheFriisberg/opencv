@@ -25,6 +25,8 @@ import static org.opencv.imgproc.Imgproc.rectangle;
  */
 public class testOpenCV {
 
+
+
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     public static ImageViewer viewer = new ImageViewer();
     public static void main(String[] args) {
