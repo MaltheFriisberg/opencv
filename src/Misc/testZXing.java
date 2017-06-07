@@ -28,7 +28,7 @@ public class testZXing {
             try {
                 image = ImageIO.read(new File(imagepath));
                 scanForQRCode(image);
-                //viewer.show(image);
+                //viewer.show(autoControllerImage);
                 //1 fps pcmasterrace
                 Thread.sleep(10);
             } catch (InterruptedException e) {

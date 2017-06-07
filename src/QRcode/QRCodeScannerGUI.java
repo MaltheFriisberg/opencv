@@ -73,7 +73,7 @@ public class QRCodeScannerGUI extends JFrame implements ImageListener, TagListen
             {
                 if (image != null)
                 {
-                    // now draw the camera image
+                    // now draw the camera autoControllerImage
                     g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
 
                     // draw "Shreds to find"

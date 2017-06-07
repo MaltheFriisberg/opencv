@@ -5,14 +5,13 @@ import Interfaces.IDroneState;
 import Misc.DroneVideoListener;
 import Util.*;
 import de.yadrone.base.ARDrone;
-import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
-import de.yadrone.base.command.VideoCodec;
 
 import java.awt.image.BufferedImage;
 
 import static CircleDetection.CircleDetector.detectAndShowCircles;
+import static CircleDetection.CircleDetector.detectCircles;
 
 /**
  * Created by malthe on 4/4/17.
@@ -32,7 +31,7 @@ public class DroneAutoController implements IDroneState {
     private final int mapPortTotal = 6;
 
     // Line up konstanter
-    private BufferedImage image;
+    static public BufferedImage autoControllerImage;
     private final int pictureDeviation = 20;
     private final int pictureWidth = 640;
     private final int pictureHeight = 360;
@@ -81,7 +80,7 @@ public class DroneAutoController implements IDroneState {
 
         /*
         this.drone = drone;
-        image = null;
+        autoControllerImage = null;
         System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
         this.drone.toggleCamera();
         this.drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
@@ -97,27 +96,35 @@ public class DroneAutoController implements IDroneState {
     public void startStateMachine() {
         //this.drone.start();
         isRunning = true;
+        System.out.println("Starter state machine");
 
         currentState = DroneStates.Approach;
         QRValid = false;
 
         while (isRunning) {
 
-            if (image != null) {
+            if(autoControllerImage == null) {
+              System.out.println("Billede ikke fundet!");
+            }
+
+            if (autoControllerImage != null) {
                 System.out.println(currentState.toString());
 
                 if(firstEnter) {
+                    System.out.println("TAKE OFF!");
                     cmd.takeOff();
+                    //cmd.landing();
                     firstEnter = false;
                 }
 
                 switch (currentState) {
                     case SearchRing:
-                        searchRing(image);
+                        searchRing(autoControllerImage);
                         break;
 
                     case Approach:
-                        approach(image);
+                        System.out.println("Går ind i approach!");
+                        approach(autoControllerImage);
                         break;
 
                     case Evaluation:
@@ -129,7 +136,7 @@ public class DroneAutoController implements IDroneState {
                         break;
                 }
             }
-            image = null;
+            autoControllerImage = null;
         }
     }
 
@@ -194,8 +201,10 @@ public class DroneAutoController implements IDroneState {
     @Override
     public void approach(BufferedImage image) {
 
-        ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
+        System.out.println("Er inde i approach!");
+        ReturnCircle circle = detectCircles(image);
 
+        System.out.println(circle.getRadius());
         /*
         if (circle.getRadius() != -1) {
             approachStates = ApproachStates.CircleLineUp;
@@ -329,14 +338,14 @@ public class DroneAutoController implements IDroneState {
                 if (QRValid == true) {
                     approachStates = ApproachStates.FlyThrough;
                 } else {
-                    searchQR(image);
+                    searchQR(autoControllerImage);
                 }
             }
         }
     }
 
     public void updateImage(BufferedImage image) {
-        this.image = image;
+        this.autoControllerImage = image;
     }
 
 }

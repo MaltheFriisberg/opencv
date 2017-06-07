@@ -12,7 +12,7 @@ public class ImageToFile {
 
     public static void saveImageToFile(BufferedImage image) {
 
-        File outputfile = new File("/Resources/QRimages/image.jpg");
+        File outputfile = new File("/Resources/QRimages/autoControllerImage.jpg");
         try {
             ImageIO.write(image, "jpg", outputfile);
         } catch (IOException e) {

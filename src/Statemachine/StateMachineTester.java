@@ -39,7 +39,7 @@ public class StateMachineTester {
         BufferedImage image;
         for (int i = 200; i < 201; i++) {
             counter = 0;
-            String imagepath = "Resources/billed/image" + i + ".jpg";
+            String imagepath = "Resources/billed/autoControllerImage" + i + ".jpg";
             //String imagepath = "Resources/newpictures/billlede" + i + ".png";
             //String imagepath = "Resources/qrcodes/qrcode.png";
 
