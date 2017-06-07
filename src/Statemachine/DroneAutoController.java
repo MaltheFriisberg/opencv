@@ -8,6 +8,7 @@ import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
+import de.yadrone.base.command.VideoCodec;
 
 import java.awt.image.BufferedImage;
 
@@ -17,11 +18,12 @@ import static CircleDetection.CircleDetector.detectAndShowCircles;
  * Created by malthe on 4/4/17.
  */
 public class DroneAutoController implements IDroneState {
-    IARDrone drone = null;
+    ARDrone drone = null;
     CommandManager cmd;
     DroneVideoListener videoListener;
     QRScanner qrScanner;
     private int speed = 30;
+    boolean firstEnter = true;
 
     boolean usingCommandManager = true;
 
@@ -36,7 +38,6 @@ public class DroneAutoController implements IDroneState {
     private final int pictureHeight = 360;
     private final long FLYFORWARDCONST = 100000;
     private final int MAXALTITUDE = 3000; //3 meters
-    private final int lineUpSpeed = 10;
     private final int optimalCircleRadius = 90;
     private final int optimalCircleRadiusDeviation = 10;
 
@@ -52,23 +53,30 @@ public class DroneAutoController implements IDroneState {
 
         try
         {
+            System.out.println("Line 1");
             drone = new ARDrone();
+            System.out.println("Line 2");
             drone.start();
+            System.out.println("Line 3");
             System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
+            System.out.println("Line 4");
             drone.toggleCamera();
+            System.out.println("Line 5");
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
-            drone.getVideoManager().connect(1337);
+            System.out.println("Line 6");
+            //drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
+            System.out.println("Line 7");
+            //drone.getVideoManager().connect(1337);
+            System.out.println("Line 8");
             cmd = drone.getCommandManager();
-            videoListener = new DroneVideoListener(this, (ARDrone) drone);
+            System.out.println("Line 9");
+            videoListener = new DroneVideoListener(this, drone);
+            System.out.println("Line 10");
             drone.getVideoManager().addImageListener(videoListener);
         }
         catch (Exception exc)
         {
             exc.printStackTrace();
-        }
-        finally
-        {
-
         }
 
         /*
@@ -83,22 +91,25 @@ public class DroneAutoController implements IDroneState {
         this.drone.getVideoManager().addImageListener(this.videoListener);
         */
 
-
         qrScanner = new QRScanner();
     }
 
     public void startStateMachine() {
         //this.drone.start();
         isRunning = true;
-        cmd.takeOff();
+
         currentState = DroneStates.Approach;
         QRValid = false;
-        //cmd.landing();
 
         while (isRunning) {
 
             if (image != null) {
                 System.out.println(currentState.toString());
+
+                if(firstEnter) {
+                    cmd.takeOff();
+                    firstEnter = false;
+                }
 
                 switch (currentState) {
                     case SearchRing:
@@ -118,6 +129,7 @@ public class DroneAutoController implements IDroneState {
                         break;
                 }
             }
+            image = null;
         }
     }
 

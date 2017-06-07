@@ -34,7 +34,7 @@ public class DroneVideoListener implements ImageListener {
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
         counter++;
-        if (counter % 30 == 0) {
+        if (counter % 20 == 0) {
             droneAutoController.updateImage(bufferedImage);
             detectAndShowCircles(bufferedImage, this.imageViewer);
             counter = 0;
