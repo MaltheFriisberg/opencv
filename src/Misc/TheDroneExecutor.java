@@ -13,8 +13,8 @@ public class TheDroneExecutor {
     public static void main(String[] args) throws InterruptedException
     {
         //PaperChase pc = new PaperChase();
-        ARDrone drone = new ARDrone();
-        DroneAutoController droneAutoController = new DroneAutoController(drone);
+        //ARDrone drone = new ARDrone();
+        DroneAutoController droneAutoController = new DroneAutoController();
         droneAutoController.startStateMachine();
 
         /*
