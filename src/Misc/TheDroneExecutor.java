@@ -15,7 +15,6 @@ public class TheDroneExecutor {
         //PaperChase pc = new PaperChase();
         //ARDrone drone = new ARDrone();
         DroneAutoController droneAutoController = new DroneAutoController();
-        droneAutoController.startStateMachine();
 
         /*
         try

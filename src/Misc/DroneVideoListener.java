@@ -9,7 +9,6 @@ import de.yadrone.base.video.ImageListener;
 import java.awt.image.BufferedImage;
 
 import static CircleDetection.CircleDetector.detectAndShowCircles;
-import static Statemachine.DroneAutoController.autoControllerImage;
 
 /**
  * Created by malthe on 3/15/17.
@@ -34,9 +33,10 @@ public class DroneVideoListener implements ImageListener {
 
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
+
         counter++;
-        autoControllerImage = bufferedImage;
         if (counter % 30 == 0) {
+            droneAutoController.updateStateMachine(bufferedImage);
             detectAndShowCircles(bufferedImage, this.imageViewer);
             counter = 0;
             //img = bufferedImage;

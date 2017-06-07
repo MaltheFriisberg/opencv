@@ -42,7 +42,7 @@ public class ImageViewer {
         frame = new JFrame(windowName);
         imageView = new JLabel();
         final JScrollPane imageScrollPane = new JScrollPane(imageView);
-        imageScrollPane.setPreferredSize(new Dimension(640, 480));
+        imageScrollPane.setPreferredSize(new Dimension(1280, 720));
         frame.add(imageScrollPane, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         return frame;
