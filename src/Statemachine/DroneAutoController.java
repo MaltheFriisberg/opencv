@@ -38,7 +38,7 @@ public class DroneAutoController implements IDroneState {
 
     // Statemachines
     private DroneStates currentState;
-    private ApproachStates approachStates;
+    private ApproachStates approachStates = ApproachStates.CircleLineUp;
 
     // Andet
     private boolean isRunning;
@@ -95,6 +95,8 @@ public class DroneAutoController implements IDroneState {
         if (circle.getRadius() != -1){
         currentState = DroneStates.Approach;
         }else {
+            drone.up();
+            drone.hover();
             drone.spinRight();
             drone.hover();
         }
@@ -103,7 +105,12 @@ public class DroneAutoController implements IDroneState {
     @Override
     public void searchQR(BufferedImage image) {
         long QRCodeCounter = 0;
+
         boolean QRCodeFound = false;
+
+        // TODO: Test (slettes når QR-kode skal bruges)
+        QRValid = true;
+        QRCodeFound = true;
 
         while(!QRCodeFound){
             QRCodeCounter++;
