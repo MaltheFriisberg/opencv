@@ -60,6 +60,7 @@ public class DroneAutoController implements IDroneState {
     public void startStateMachine() {
         this.drone.start();
         this.isRunning = true;
+        drone.takeOff();
         this.currentState = DroneStates.SearchRing;
         QRValid = false;
 
