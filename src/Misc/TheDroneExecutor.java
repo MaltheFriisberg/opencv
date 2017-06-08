@@ -5,6 +5,7 @@ package Misc; /**
 
 import Statemachine.DroneAutoController;
 import de.yadrone.base.ARDrone;
+import de.yadrone.base.IARDrone;
 
 
 public class TheDroneExecutor {
@@ -15,6 +16,7 @@ public class TheDroneExecutor {
         //PaperChase pc = new PaperChase();
         //ARDrone drone = new ARDrone();
         DroneAutoController droneAutoController = new DroneAutoController();
+
 
         /*
         try

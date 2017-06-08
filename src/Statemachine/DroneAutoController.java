@@ -11,7 +11,6 @@ import de.yadrone.base.command.VideoCodec;
 
 import java.awt.image.BufferedImage;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
 import static CircleDetection.CircleDetector.detectCircles;
 
 /**
@@ -22,7 +21,7 @@ public class DroneAutoController implements IDroneState {
     CommandManager cmd;
     DroneVideoListener videoListener;
     QRScanner qrScanner;
-    private int speed = 10;
+    private int flightSpeed = 5;
     boolean firstEnter = true;
     private ImageViewer imageViewer;
 
@@ -65,7 +64,7 @@ public class DroneAutoController implements IDroneState {
             System.out.println("Line 5");
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
             System.out.println("Line 6");
-            //drone.getCommandManager().setVideoCodec(VideoCodec);
+            //drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
             System.out.println("Line 7");
             //drone.getVideoManager().connect(1337);
             System.out.println("Line 8");
@@ -102,6 +101,9 @@ public class DroneAutoController implements IDroneState {
 
         System.out.println(currentState.toString());
 
+        System.out.println("W: " + image.getWidth());
+        System.out.println("H: " + image.getHeight());
+
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             cmd.takeOff();
@@ -126,6 +128,8 @@ public class DroneAutoController implements IDroneState {
                 landing();
                 break;
         }
+
+        System.out.println("Done med states");
     }
 
     public void searchRing(BufferedImage image) {
@@ -139,9 +143,9 @@ public class DroneAutoController implements IDroneState {
             currentState = DroneStates.Approach;
         } else {
             if (usingCommandManager) {
-                cmd.up(speed);
+                cmd.up(flightSpeed);
                 cmd.hover();
-                cmd.spinRight(speed);
+                cmd.spinRight(flightSpeed);
                 cmd.hover();
             } else {
                 drone.up();
@@ -162,10 +166,10 @@ public class DroneAutoController implements IDroneState {
         QRValid = true;
         QRCodeFound = true;
 
-        while (!QRCodeFound) {
+        while (QRCodeFound == false) {
             QRCodeCounter++;
             if (usingCommandManager) {
-                cmd.down(speed);
+                cmd.down(flightSpeed);
                 cmd.hover();
             } else {
                 drone.down();
@@ -178,9 +182,10 @@ public class DroneAutoController implements IDroneState {
                 QRValid = true;
             }
         }
+
         for (int i = 0; i < QRCodeCounter; i++) {
             if (usingCommandManager) {
-                cmd.up(speed);
+                cmd.up(flightSpeed);
                 cmd.hover();
             } else {
                 drone.up();
@@ -218,12 +223,14 @@ public class DroneAutoController implements IDroneState {
                     // Flyv ligeud og fortsæt i x sekunder..
                     for (int i = 0; i < FLYFORWARDCONST; i++) {
                         if (usingCommandManager) {
-                            cmd.forward(speed);
-                            try {
-                                cmd.wait(timeBetweenCommands);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            cmd.forward(flightSpeed).doFor(timeBetweenCommands);
+                    /*
+                    try {
+                        cmd.wait(timeBetweenCommands);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    */
                             cmd.hover();
                         } else {
                             drone.forward();
@@ -267,12 +274,7 @@ public class DroneAutoController implements IDroneState {
                 // Flyv længere væk
                 System.out.println("Længere væk");
                 if (usingCommandManager) {
-                    cmd.backward(speed);
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    cmd.backward(flightSpeed).doFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.backward();
@@ -284,12 +286,7 @@ public class DroneAutoController implements IDroneState {
                 // Flyv tættere på
                 System.out.println("Tættere på");
                 if (usingCommandManager) {
-                    cmd.forward(speed);
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    cmd.forward(flightSpeed).doFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.forward();
@@ -300,12 +297,7 @@ public class DroneAutoController implements IDroneState {
                 // Ryk drone til venstre
                 System.out.println("Venstre");
                 if (usingCommandManager) {
-                    cmd.goLeft(speed);
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    cmd.goLeft(flightSpeed).doFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.goLeft();
@@ -316,12 +308,7 @@ public class DroneAutoController implements IDroneState {
                 // Ryk drone til højre
                 System.out.println("Højre");
                 if (usingCommandManager) {
-                    cmd.goRight(speed);
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    cmd.goRight(flightSpeed).doFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.goRight();
@@ -332,12 +319,7 @@ public class DroneAutoController implements IDroneState {
                 // Ryk drone opad
                 System.out.println("Opad");
                 if (usingCommandManager) {
-                    cmd.up(speed);
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    cmd.up(flightSpeed).doFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.up();
@@ -348,12 +330,7 @@ public class DroneAutoController implements IDroneState {
                 // Ryk drone nedad
                 System.out.println("Nedad");
                 if (usingCommandManager) {
-                    cmd.down(speed);
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    cmd.down(flightSpeed).doFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.down();
@@ -368,6 +345,8 @@ public class DroneAutoController implements IDroneState {
                     searchQR(image);
                 }
             }
+
+            System.out.println("done her");
         }
     }
 
