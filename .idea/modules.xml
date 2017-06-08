@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Downloads/YADrone/YADrone/YADrone.iml" filepath="$USER_HOME$/Downloads/YADrone/YADrone/YADrone.iml" />
-      <module fileurl="file://$PROJECT_DIR$/opencv.iml" filepath="$PROJECT_DIR$/opencv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Modules/YADrone/YADrone.iml" filepath="$PROJECT_DIR$/Modules/YADrone/YADrone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/opencv1.iml" filepath="$PROJECT_DIR$/opencv1.iml" />
     </modules>
   </component>
 </project>

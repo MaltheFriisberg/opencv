@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
+import static CircleDetection.CircleDetector.detectCirclesGrayFilter;
 
 /**
  * Created by malthe on 6/6/17.
@@ -29,7 +29,7 @@ public class testAutoController {
             String imagepath = "Resources/newpictures/image"+i+".jpg";
             try {
                 image = ImageIO.read(new File(imagepath));
-                detectAndShowCircles(image, viewer);
+                detectCirclesGrayFilter(image, viewer);
                 controller.updateImage(image);
             } catch (IOException e) {
                 e.printStackTrace();

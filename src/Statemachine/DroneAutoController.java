@@ -10,7 +10,8 @@ import de.yadrone.base.command.VideoChannel;
 
 import java.awt.image.BufferedImage;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
+
+import static CircleDetection.CircleDetector.detectCirclesGrayFilter;
 
 /**
  * Created by malthe on 4/4/17.
@@ -20,7 +21,7 @@ public class DroneAutoController implements IDroneState {
     CommandManager commandManager;
     DroneVideoListener videoListener;
     QRScanner qrScanner;
-
+    private ImageViewer viewer;
     public int nextPort = 1;
     private final int mapPortTotal = 6;
 
@@ -41,8 +42,8 @@ public class DroneAutoController implements IDroneState {
 
     public DroneAutoController(IARDrone drone) {
         this.drone = drone;
-        this.drone.start();
-        image = null;
+        //this.drone.start();
+        //image = null;
         System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
         this.drone.toggleCamera();
         this.drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
@@ -51,10 +52,11 @@ public class DroneAutoController implements IDroneState {
         this.videoListener = new DroneVideoListener(this, this.drone);
         this.drone.getVideoManager().addImageListener(this.videoListener);
         this.qrScanner = new QRScanner();
+        this.viewer = new ImageViewer();
     }
 
     public void start() {
-
+        drone.takeOff();
         this.isRunning = true;
         this.currentState = DroneStates.SearchRing;
         while (isRunning) {
@@ -87,7 +89,7 @@ public class DroneAutoController implements IDroneState {
 
     public void searchRing(BufferedImage image) {
 
-        ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
+        ReturnCircle circle = detectCirclesGrayFilter(image, new ImageViewer());
 
         if (circle.getRadius() != -1){
         currentState = DroneStates.Approach;
@@ -123,7 +125,7 @@ public class DroneAutoController implements IDroneState {
     @Override
     public void approach(BufferedImage image) {
 
-        ReturnCircle circle = detectAndShowCircles(image, new ImageViewer());
+        ReturnCircle circle = detectCirclesGrayFilter(image, new ImageViewer());
 
         if (circle.getRadius() != -1) {
             approachStates = ApproachStates.CircleLineUp;
@@ -201,6 +203,7 @@ public class DroneAutoController implements IDroneState {
     public void updateImage(BufferedImage image) {
         System.out.println(currentState);
         this.image = image;
+        this.viewer.show(image);
     }
 
 }
