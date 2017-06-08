@@ -1,21 +1,15 @@
 package Misc;
 
-import CircleDetection.CircleDetector;
 import Util.ImageViewer;
 import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.html.ImageView;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
-import static Util.ImageConverter.bufferedImageToMat;
+import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
 import static org.opencv.imgproc.Imgproc.circle;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
@@ -36,7 +30,7 @@ public class testOpenCV {
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                detectAndShowCircles(image, viewer);
+                detectAndShowWhiteCircles(image, viewer);
 
                 //1 fps pcmasterrace
                 Thread.sleep(200);

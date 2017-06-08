@@ -1,18 +1,16 @@
 package Statemachine;
 
 import CircleDetection.ReturnCircle;
-import Util.ApproachStates;
 import Util.ImageViewer;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 import javax.imageio.ImageIO;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
+import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
 
 /**
  * Created by Pyke-Laptop on 06-06-2017.
@@ -45,7 +43,7 @@ public class StateMachineTester {
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                centerDroneToRing(detectAndShowCircles(image, viewer));
+                centerDroneToRing(detectAndShowWhiteCircles(image, viewer));
                 System.out.println("----------------");
 
                 //1 fps pcmasterrace

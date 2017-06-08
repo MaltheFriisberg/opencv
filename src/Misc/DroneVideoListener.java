@@ -9,6 +9,7 @@ import de.yadrone.base.video.ImageListener;
 import java.awt.image.BufferedImage;
 
 import static CircleDetection.CircleDetector.detectAndShowCircles;
+import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
 
 /**
  * Created by malthe on 3/15/17.
@@ -36,18 +37,21 @@ public class DroneVideoListener implements ImageListener {
 
         counter++;
 
+        imageViewer.show(bufferedImage);
+
+    /*
         if(counter % 5 == 0) {
-            droneAutoController.updateStateMachine(bufferedImage);
             System.out.println("-------");
             System.out.println("Bredde: " + bufferedImage.getWidth());
-        }
-
-        if (counter % 15 == 0) {
-            imageViewer.show(bufferedImage);
             //detectAndShowCircles(bufferedImage, this.imageViewer);
-            counter = 0;
-            //img = bufferedImage;
         }
+*/
+        if (counter % 15 == 0) {
+            droneAutoController.updateStateMachine(bufferedImage);
+            counter = 0;
+        }
+            //img = bufferedImage;
+        //}
     }
 
     //public BufferedImage getImg() {

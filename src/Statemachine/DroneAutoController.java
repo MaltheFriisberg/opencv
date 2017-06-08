@@ -7,10 +7,10 @@ import Util.*;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoChannel;
-import de.yadrone.base.command.VideoCodec;
 
 import java.awt.image.BufferedImage;
 
+import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
 import static CircleDetection.CircleDetector.detectCircles;
 
 /**
@@ -33,14 +33,14 @@ public class DroneAutoController implements IDroneState {
 
     // Line up konstanter
     //static public BufferedImage autoControllerImage;
-    private final int pictureDeviation = 50;
+    private final int pictureDeviation = 200;
     private final int pictureWidth = 1280;
     private final int pictureHeight = 720;
     private final long FLYFORWARDCONST = 100000;
     private final int MAXALTITUDE = 3000; //3 meters
-    private final int optimalCircleRadius = 120;
-    private final int optimalCircleRadiusDeviation = 30;
-    private final int timeBetweenCommands = 2;
+    private final int optimalCircleRadius = 90;
+    private final int optimalCircleRadiusDeviation = 50;
+    private final int timeBetweenCommands = 10;
 
     // Statemachines
     private DroneStates currentState;
@@ -101,13 +101,11 @@ public class DroneAutoController implements IDroneState {
 
         System.out.println(currentState.toString());
 
-        System.out.println("W: " + image.getWidth());
-        System.out.println("H: " + image.getHeight());
-
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             cmd.takeOff();
-            cmd.landing();
+            cmd.up(flightSpeed).doFor(100);
+            //cmd.landing();
             firstEnter = false;
         }
 
@@ -128,14 +126,9 @@ public class DroneAutoController implements IDroneState {
                 landing();
                 break;
         }
-
-        System.out.println("Done med states");
     }
 
     public void searchRing(BufferedImage image) {
-
-        System.out.println("W: " + image.getWidth());
-        System.out.println("H: " + image.getHeight());
 
         ReturnCircle circle = detectCircles(image);
 
@@ -197,8 +190,8 @@ public class DroneAutoController implements IDroneState {
     @Override
     public void approach(BufferedImage image) {
 
-        System.out.println("W: " + image.getWidth());
-        System.out.println("H: " + image.getHeight());
+        //System.out.println("W: " + image.getWidth());
+        //System.out.println("H: " + image.getHeight());
 
         ReturnCircle circle = detectCircles(image);
 
@@ -212,9 +205,8 @@ public class DroneAutoController implements IDroneState {
         */
 
         if (circle.getRadius() != -1) {
-
+            System.out.println(approachStates.toString());
             switch (approachStates) {
-
                 case CircleLineUp:
                     centerDroneToRing(circle, image);
                     break;
@@ -280,7 +272,7 @@ public class DroneAutoController implements IDroneState {
                     drone.backward();
                     drone.hover();
                 }
-
+                System.out.println("Færdig med længere væk");
 
             } else if (circle.getRadius() < optimalCircleRadius - pictureDeviation) { // Dronen er for tæt på cirklen
                 // Flyv tættere på
@@ -292,6 +284,7 @@ public class DroneAutoController implements IDroneState {
                     drone.forward();
                     drone.hover();
                 }
+                System.out.println("Færdig med tættere på");
 
             } else if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
                 // Ryk drone til venstre
@@ -303,6 +296,7 @@ public class DroneAutoController implements IDroneState {
                     drone.goLeft();
                     drone.hover();
                 }
+                System.out.println("Færdig med venstre");
 
             } else if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
                 // Ryk drone til højre
@@ -314,6 +308,7 @@ public class DroneAutoController implements IDroneState {
                     drone.goRight();
                     drone.hover();
                 }
+                System.out.println("Færdig med højre");
 
             } else if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
                 // Ryk drone opad
@@ -325,6 +320,7 @@ public class DroneAutoController implements IDroneState {
                     drone.up();
                     drone.hover();
                 }
+                System.out.println("Færdig med op");
 
             } else if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
                 // Ryk drone nedad
@@ -336,6 +332,7 @@ public class DroneAutoController implements IDroneState {
                     drone.down();
                     drone.hover();
                 }
+                System.out.println("Færdig med nedad");
 
             } else {
                 System.out.println("Perfekt!");
@@ -346,7 +343,7 @@ public class DroneAutoController implements IDroneState {
                 }
             }
 
-            System.out.println("done her");
+            System.out.println("Done her");
         }
     }
 

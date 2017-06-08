@@ -36,10 +36,48 @@ public class CircleDetector {
                 r = (int) data[2];
                 circleArray[i] = new ReturnCircle(x,y,r);
             }
+
+        }
+
+        ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
+
+        for(int i = 0; i < circles.rows(); i++) {
+            if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
+                biggestCircle = new ReturnCircle(circleArray[i]);
+            }
+        }
+        return biggestCircle;
+    }
+
+    @SuppressWarnings("Duplicates")
+    public static ReturnCircle detectAndShowCircles(BufferedImage img, ImageViewer iw) {
+        System.out.println("Undersøger billede...");
+        Mat image = bufferedImageToMat(img);
+        Mat gray = new Mat();
+        //Mat blurred = new Mat();
+        Mat circles = new Mat();
+
+        Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
+        //Imgproc.GaussianBlur(gray, blurred, new Size(11,11),0);
+        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 50, 0 );
+        //System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
+        double x = 0.0;
+        double y = 0.0;
+        int r = 0;
+        ReturnCircle[] circleArray = new ReturnCircle[10];
+
+        for( int i = 0; i < circles.rows(); i++ ) {
+            double[] data = circles.get(i, 0);
+            for (int j = 0; j < data.length; j++) {
+                x = data[0];
+                y = data[1];
+                r = (int) data[2];
+                circleArray[i] = new ReturnCircle(x,y,r);
+            }
             Point imageCenter = new Point(320,180);
             Point center = new Point(x, y);
             // System.out.println("ImageCenter calculated to "+center);
-            pointFeaturesToCircleCenter(image, center);
+            //pointFeaturesToCircleCenter(image, center);
 
             //Image center
 
@@ -50,6 +88,7 @@ public class CircleDetector {
             // circle outline
             circle(image, center, r, new Scalar(0, 0, 255), 1);
 
+            iw.show(image);
             //Core.
         }
 
@@ -63,7 +102,7 @@ public class CircleDetector {
         return biggestCircle;
     }
 
-    public static ReturnCircle detectAndShowCircles(BufferedImage img, ImageViewer viewer) {
+    public static ReturnCircle detectAndShowWhiteCircles(BufferedImage img, ImageViewer viewer) {
         if(img != null) {
             Mat image = bufferedImageToMat(img);
             Mat gray = new Mat();
@@ -90,7 +129,7 @@ public class CircleDetector {
                     r = (int) data[2];
                     circleArray[i] = new ReturnCircle(x,y,r);
                 }
-                Point imageCenter = new Point(320,180);
+                Point imageCenter = new Point(640,360);
                 Point center = new Point(x, y);
                 System.out.println("ImageCenter calculated to "+center);
                 //pointFeaturesToCircleCenter(red, center);
