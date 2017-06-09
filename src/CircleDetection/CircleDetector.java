@@ -102,8 +102,8 @@ public class CircleDetector {
         Mat lower_red_hue_range = new Mat();
         Mat upper_red_hue_range = new Mat();
 
-        Core.inRange(hsv_image, new Scalar(0, 100, 100), new Scalar(10, 255, 255), lower_red_hue_range);
-        Core.inRange(hsv_image, new Scalar(160, 100, 100), new Scalar(179, 255, 255), upper_red_hue_range);
+        Core.inRange(hsv_image, new Scalar(0, 70, 50), new Scalar(10, 255, 255), lower_red_hue_range);
+        Core.inRange(hsv_image, new Scalar(170, 70, 50), new Scalar(180, 255, 255), upper_red_hue_range);
 
 
         //Core.inRange(hsv_image, new Scalar(5,50,50), new Scalar(15, 255, 255), lower_red_hue_range);
