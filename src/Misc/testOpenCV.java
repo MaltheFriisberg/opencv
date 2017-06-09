@@ -19,6 +19,7 @@ import java.io.IOException;
 import static CircleDetection.CircleDetector.convertToRedHsv;
 
 import static CircleDetection.CircleDetector.detectCirclesRedFilter;
+import static CircleDetection.CircleDetector.testRedFilter;
 import static Util.ImageConverter.bufferedImageToMat;
 import static org.opencv.imgproc.Imgproc.circle;
 import static org.opencv.imgproc.Imgproc.rectangle;
@@ -47,13 +48,14 @@ public class testOpenCV {
             try {
                 image = ImageIO.read(new File(imagepath));
                 //long startTime = System.nanoTime();
-                //ReturnCircle result = detectCirclesRedFilter(image, viewer);
+                Mat result = testRedFilter(image);
                 //long stopTime = System.nanoTime();
                 //viewer.show(image);
-                debugWindow.imageUpdated(image, ""+i, ""+i);
+                //debugWindow.imageUpdated(image, ""+i, ""+i);
                 //System.out.println((stopTime - startTime)/1000000000.0);
                 //Mat red = convertToRedHsv(image);
                 //viewer.show(red);
+                debugWindow.imageUpdated(result, ""+i, ""+i);
 
                 //1 fps pcmasterrace
                 Thread.sleep(200);

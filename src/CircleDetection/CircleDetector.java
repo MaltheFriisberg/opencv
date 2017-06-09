@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import Util.ImageViewer;
 import static Util.ImageConverter.bufferedImageToMat;
+import static Util.ImageConverter.matToBufferedImage;
 import static org.opencv.imgproc.Imgproc.circle;
 
 /**
@@ -17,7 +18,7 @@ public class CircleDetector {
 
     //public static ImageViewer viewer = new ImageViewer();
 
-    public static ReturnCircle detectCirclesRedFilter(BufferedImage img, ImageViewer viewer) {
+    public static ReturnCircle detectCirclesRedFilter(BufferedImage img) {
         if(img != null) {
             Mat circles = new Mat();
 
@@ -37,7 +38,7 @@ public class CircleDetector {
                     x = data[0];
                     y = data[1];
                     r = (int) data[2];
-                    circleArray[i] = new ReturnCircle(x,y,r);
+                    circleArray[i] = new ReturnCircle(x,y,r, null);
                 }
                 Point imageCenter = new Point(640,320);
                 Point center = new Point(x, y);
@@ -56,8 +57,8 @@ public class CircleDetector {
 
                 //Core.
             }
-            viewer.show(red);
-            ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
+            //viewer.show(red);
+            ReturnCircle biggestCircle = new ReturnCircle(0,0,-1, red);
 
             for(int i = 0; i < circles.rows(); i++) {
                 if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
@@ -67,7 +68,7 @@ public class CircleDetector {
 
             return biggestCircle;
         }
-        return new ReturnCircle(0.0, 0.0, 0);
+        return new ReturnCircle(0.0, 0.0, 0, null);
     }
     public static MatOfPoint pointFeaturesToCircleCenter(Mat image, Point center) {
         MatOfPoint corners = new MatOfPoint();
@@ -142,7 +143,7 @@ public class CircleDetector {
                 x = data[0];
                 y = data[1];
                 r = (int) data[2];
-                circleArray[i] = new ReturnCircle(x,y,r);
+                circleArray[i] = new ReturnCircle(x,y,r, null);
             }
             Point imageCenter = new Point(320,180);
             Point center = new Point(x, y);
@@ -162,7 +163,7 @@ public class CircleDetector {
             //Core.
         }
 
-        ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
+        ReturnCircle biggestCircle = new ReturnCircle(0,0,-1, image);
 
         for(int i = 0; i < circles.rows(); i++) {
             if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
@@ -170,6 +171,50 @@ public class CircleDetector {
             }
         }
         return biggestCircle;
+    }
+    public static Mat testRedFilter(BufferedImage img) {
+        if(img != null) {
+            Mat circles = new Mat();
+
+            Mat red = convertToRedHsv(img);
+            //viewer.show(red);
+            Imgproc.HoughCircles(red, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 8, 100, 20, 0, 0);
+            //System.out.
+            //println("#rows " + circles.rows() + " #cols " + circles.cols());
+            double x = 0.0;
+            double y = 0.0;
+            int r = 0;
+            ReturnCircle[] circleArray = new ReturnCircle[10];
+
+            for (int i = 0; i < circles.rows(); i++) {
+                double[] data = circles.get(i, 0);
+                for (int j = 0; j < data.length; j++) {
+                    x = data[0];
+                    y = data[1];
+                    r = (int) data[2];
+                    circleArray[i] = new ReturnCircle(x, y, r, null);
+                }
+                Point imageCenter = new Point(640, 320);
+                Point center = new Point(x, y);
+                System.out.println("ImageCenter calculated to " + center);
+                //pointFeaturesToCircleCenter(red, center);
+
+                //Image center
+
+                circle(red, imageCenter, 6, new Scalar(255, 255, 255));
+
+                // circle center
+                circle(red, center, 3, new Scalar(255, 255, 255), -1);
+                // circle outline
+                circle(red, center, r, new Scalar(255, 255, 255), 10);
+                //viewer.show(red);
+
+                //Core.
+            }
+            //viewer.show(red);
+            return red;
+        }
+        return new Mat();
     }
 
 }
