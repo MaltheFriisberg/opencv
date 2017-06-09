@@ -35,7 +35,7 @@ public class DroneVideoRecorder implements ImageListener{
     private void saveImgToDisk(BufferedImage image) {
 
 
-        File outputfile = new File("/redfilter/image"+count+".jpg");
+        File outputfile = new File("image"+count+".jpg");
         try {
             ImageIO.write(image, "jpg", outputfile);
         } catch (IOException e) {

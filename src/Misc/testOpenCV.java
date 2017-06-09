@@ -2,6 +2,7 @@ package Misc;
 
 import CircleDetection.CircleDetector;
 import Util.ImageViewer;
+import Util.ReturnCircle;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -37,13 +38,16 @@ public class testOpenCV {
         BufferedImage image;
         ImageViewer viewer = new ImageViewer();
 
-        for (int i = 0; i <3818; i++) {
-            String imagepath = "Resources/newpictures/billlede"+i+".png";
+        for (int i = 178; i <565; i++) {
+            String imagepath = "Resources/pictures720p/image"+i+".jpg";
             //String imagepath = "Resources/qrcodes/qrcode.png";
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                detectCirclesRedFilter(image, viewer);
+                long startTime = System.nanoTime();
+                ReturnCircle result = detectCirclesRedFilter(image, viewer);
+                long stopTime = System.nanoTime();
+                System.out.println((stopTime - startTime)/1000000000.0);
                 //Mat red = convertToRedHsv(image);
                 //viewer.show(red);
 

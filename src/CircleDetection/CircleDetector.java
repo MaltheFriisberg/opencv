@@ -22,6 +22,7 @@ public class CircleDetector {
             Mat circles = new Mat();
 
             Mat red = convertToRedHsv(img);
+            //viewer.show(red);
             Imgproc.HoughCircles(red, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 8, 100, 20, 0, 0 );
             //System.out.
             //println("#rows " + circles.rows() + " #cols " + circles.cols());
@@ -50,12 +51,12 @@ public class CircleDetector {
                 // circle center
                 circle(red, center, 3, new Scalar(255, 255, 255), -1);
                 // circle outline
-                circle(red, center, r, new Scalar(255, 255, 255), 20);
-                viewer.show(red);
+                circle(red, center, r, new Scalar(255, 255, 255), 10);
+                //viewer.show(red);
 
                 //Core.
             }
-
+            viewer.show(red);
             ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
 
             for(int i = 0; i < circles.rows(); i++) {
@@ -113,7 +114,7 @@ public class CircleDetector {
         Mat red_hue_image = new Mat();
         Core.addWeighted(lower_red_hue_range, 1.0, upper_red_hue_range, 1.0, 0.0, red_hue_image);
 
-        //Imgproc.GaussianBlur(red_hue_image, red_hue_image, new Size(9,9), 2,2);
+        Imgproc.GaussianBlur(red_hue_image, red_hue_image, new Size(9,9), 2,2);
 
         return red_hue_image;
 
