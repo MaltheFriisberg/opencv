@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
+import static Statemachine.DroneAutoController.droneStateText;
 import static Statemachine.DroneAutoController.outputText;
 
 /**
@@ -15,7 +16,8 @@ import static Statemachine.DroneAutoController.outputText;
 public class ImageViewer {
     private JLabel imageView;
     private JFrame frame;
-    private JTextField textOutput;
+    private JTextField textOutput = new JTextField();
+    private JTextField stateText = new JTextField();
     public ImageViewer() {
         createJFrame("");
     }
@@ -39,6 +41,8 @@ public class ImageViewer {
         frame.pack();
         frame.setLocationRelativeTo(null);
         textOutput.setText(outputText);
+        stateText.setSelectedTextColor(Color.yellow);
+        stateText.setText(droneStateText);
         frame.setVisible(true);
     }
 
@@ -49,9 +53,13 @@ public class ImageViewer {
         imageScrollPane.setPreferredSize(new Dimension(1500, 720));
         frame.add(imageScrollPane, BorderLayout.CENTER);
 
-        textOutput.setBounds(1300, 10, 200, 700);
+        textOutput.setBounds(1300, 10, 200, 100);
         textOutput.setEnabled(true);
         textOutput.setVisible(true);
+
+        stateText.setBounds(1100, 10, 200, 100);
+        stateText.setEnabled(true);
+        stateText.setVisible(true);
 
         frame.add(textOutput);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -10,7 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
+import static CircleDetection.CircleDetector.detectCirclesRedFilter;
+
 
 /**
  * Created by Pyke-Laptop on 06-06-2017.
@@ -43,7 +44,7 @@ public class StateMachineTester {
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                centerDroneToRing(detectAndShowWhiteCircles(image, viewer));
+                centerDroneToRing(detectCirclesRedFilter(image));
                 System.out.println("----------------");
 
                 //1 fps pcmasterrace

@@ -10,8 +10,7 @@ import de.yadrone.base.command.VideoChannel;
 
 import java.awt.image.BufferedImage;
 
-import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
-import static CircleDetection.CircleDetector.detectCircles;
+import static CircleDetection.CircleDetector.detectCirclesRedFilter;
 
 /**
  * Created by malthe on 4/4/17.
@@ -24,6 +23,7 @@ public class DroneAutoController implements IDroneState {
     boolean firstEnter = true;
     private ImageViewer imageViewer;
     static public String outputText;
+    static public String droneStateText;
 
     // Drone flight constants
     private final int flyThroughTime = 2000;
@@ -104,6 +104,7 @@ public class DroneAutoController implements IDroneState {
     public void updateStateMachine(BufferedImage image) {
 
         System.out.println(currentState.toString());
+        droneStateText = currentState.toString();
 
         if (firstEnter) {
             System.out.println("TAKE OFF!");
@@ -134,7 +135,7 @@ public class DroneAutoController implements IDroneState {
 
     public void searchRing(BufferedImage image) {
 
-        ReturnCircle circle = detectCircles(image);
+        ReturnCircle circle = detectCirclesRedFilter(image);
 
         if (circle.getRadius() != -1) {
             currentState = DroneStates.Approach;
@@ -197,7 +198,7 @@ public class DroneAutoController implements IDroneState {
         //System.out.println("W: " + image.getWidth());
         //System.out.println("H: " + image.getHeight());
 
-        ReturnCircle circle = detectCircles(image);
+        ReturnCircle circle = detectCirclesRedFilter(image);
 
         System.out.println("Radius: " + circle.getRadius());
         /*

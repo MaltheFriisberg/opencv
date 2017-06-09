@@ -8,8 +8,6 @@ import de.yadrone.base.video.ImageListener;
 
 import java.awt.image.BufferedImage;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
-import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
 
 /**
  * Created by malthe on 3/15/17.

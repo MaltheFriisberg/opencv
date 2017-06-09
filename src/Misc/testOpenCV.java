@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static CircleDetection.CircleDetector.detectAndShowWhiteCircles;
+import static CircleDetection.CircleDetector.detectCirclesRedFilter;
 import static org.opencv.imgproc.Imgproc.circle;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
@@ -30,7 +30,7 @@ public class testOpenCV {
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                detectAndShowWhiteCircles(image, viewer);
+                detectCirclesRedFilter(image, viewer);
 
                 //1 fps pcmasterrace
                 Thread.sleep(200);

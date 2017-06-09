@@ -17,6 +17,58 @@ public class CircleDetector {
 
     //public static ImageViewer viewer = new ImageViewer();
 
+    public static ReturnCircle detectCirclesRedFilter(BufferedImage img) {
+        if(img != null) {
+            Mat circles = new Mat();
+
+            Mat red = convertToRedHsv(img);
+            //viewer.show(red);
+            Imgproc.HoughCircles(red, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 8, 100, 20, 0, 0 );
+            //System.out.
+            //println("#rows " + circles.rows() + " #cols " + circles.cols());
+            double x = 0.0;
+            double y = 0.0;
+            int r = 0;
+            ReturnCircle[] circleArray = new ReturnCircle[10];
+
+            for( int i = 0; i < circles.rows(); i++ ) {
+                double[] data = circles.get(i, 0);
+                for (int j = 0; j < data.length; j++) {
+                    x = data[0];
+                    y = data[1];
+                    r = (int) data[2];
+                    circleArray[i] = new ReturnCircle(x,y,r);
+                }
+                Point imageCenter = new Point(640,320);
+                Point center = new Point(x, y);
+//                System.out.println("ImageCenter calculated to "+center);
+                //pointFeaturesToCircleCenter(red, center);
+
+                //Image center
+
+                circle(red, imageCenter, 6, new Scalar(255,255,255));
+
+                // circle center
+                circle(red, center, 3, new Scalar(255, 255, 255), -1);
+                // circle outline
+                circle(red, center, r, new Scalar(255, 255, 255), 10);
+                //viewer.show(red);
+
+                //Core.
+            }
+            ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
+
+            for(int i = 0; i < circles.rows(); i++) {
+                if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
+                    biggestCircle = new ReturnCircle(circleArray[i]);
+                }
+            }
+
+            return biggestCircle;
+        }
+        return new ReturnCircle(0.0, 0.0, 0);
+    }
+
     public static ReturnCircle detectCirclesRedFilter(BufferedImage img, ImageViewer viewer) {
         if(img != null) {
             Mat circles = new Mat();
