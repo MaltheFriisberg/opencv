@@ -64,9 +64,13 @@ public class CircleDetector {
                 }
             }
 
-            return biggestCircle;
+            if(biggestCircle.getRadius() > 50) {
+                return biggestCircle;
+            } else {
+                return new ReturnCircle(0,0,-1);
+            }
         }
-        return new ReturnCircle(0.0, 0.0, 0);
+        return null;
     }
 
     public static ReturnCircle detectCirclesRedFilter(BufferedImage img, ImageViewer viewer) {
@@ -222,6 +226,61 @@ public class CircleDetector {
             }
         }
         return biggestCircle;
+    }
+
+    public static ReturnCircle detectCirclesGrayFilter(BufferedImage img) {
+        Mat image = bufferedImageToMat(img);
+        Mat gray = new Mat();
+        //Mat blurred = new Mat();
+        Mat circles = new Mat();
+
+        Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
+        //Imgproc.GaussianBlur(gray, blurred, new Size(11,11),0);
+        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 50, 0 );
+        //System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
+        double x = 0.0;
+        double y = 0.0;
+        int r = 0;
+        ReturnCircle[] circleArray = new ReturnCircle[10];
+
+        for( int i = 0; i < circles.rows(); i++ ) {
+            double[] data = circles.get(i, 0);
+            for (int j = 0; j < data.length; j++) {
+                x = data[0];
+                y = data[1];
+                r = (int) data[2];
+                circleArray[i] = new ReturnCircle(x,y,r);
+            }
+            Point imageCenter = new Point(320,180);
+            Point center = new Point(x, y);
+            // System.out.println("ImageCenter calculated to "+center);
+            pointFeaturesToCircleCenter(image, center);
+
+            //Image center
+
+            circle(image, imageCenter, 6, new Scalar(255,255,255));
+
+            // circle center
+            circle(image, center, 3, new Scalar(0, 255, 0), -1);
+            // circle outline
+            circle(image, center, r, new Scalar(0, 0, 255), 1);
+
+            //Core.
+        }
+
+        ReturnCircle biggestCircle = new ReturnCircle(0,0,-1);
+
+        for(int i = 0; i < circles.rows(); i++) {
+            if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
+                biggestCircle = new ReturnCircle(circleArray[i]);
+            }
+        }
+
+        if(biggestCircle.getRadius() > 50) {
+            return biggestCircle;
+        } else {
+            return new ReturnCircle(0,0,-1);
+        }
     }
 
 }

@@ -16,8 +16,8 @@ import static Statemachine.DroneAutoController.outputText;
 public class ImageViewer {
     private JLabel imageView;
     private JFrame frame;
-    private JTextField textOutput = new JTextField();
-    private JTextField stateText = new JTextField();
+    private JTextArea textOutput = new JTextArea();
+    private JTextArea stateText = new JTextArea();
     public ImageViewer() {
         createJFrame("");
     }
@@ -38,11 +38,11 @@ public class ImageViewer {
 
     public void show(BufferedImage image) {
         imageView.setIcon(new ImageIcon(image));
-        frame.pack();
         frame.setLocationRelativeTo(null);
         textOutput.setText(outputText);
         stateText.setSelectedTextColor(Color.yellow);
-        stateText.setText(droneStateText);
+        //stateText.setText(droneStateText);
+        frame.pack();
         frame.setVisible(true);
     }
 
@@ -53,15 +53,15 @@ public class ImageViewer {
         imageScrollPane.setPreferredSize(new Dimension(1500, 720));
         frame.add(imageScrollPane, BorderLayout.CENTER);
 
-        textOutput.setBounds(1300, 10, 200, 100);
-        textOutput.setEnabled(true);
-        textOutput.setVisible(true);
+   //     textOutput.setBounds(1300, 10, 200, 100);
+   //     textOutput.setEnabled(true);
+     //   textOutput.setVisible(true);
 
-        stateText.setBounds(1100, 10, 200, 100);
-        stateText.setEnabled(true);
-        stateText.setVisible(true);
+    //    stateText.setBounds(1100, 10, 200, 100);
+   //    stateText.setEnabled(true);
+    //    stateText.setVisible(true);
 
-        frame.add(textOutput);
+  //      frame.add(textOutput);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         return frame;
     }
