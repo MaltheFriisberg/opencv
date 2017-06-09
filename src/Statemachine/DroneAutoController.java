@@ -136,7 +136,7 @@ public class DroneAutoController implements IDroneState {
 
     public void searchRing(BufferedImage image) {
 
-        ReturnCircle circle = detectCirclesGrayFilter(image);
+        ReturnCircle circle = detectCirclesRedFilter(image);
 
         if (circle.getRadius() != -1) {
             currentState = DroneStates.Approach;
@@ -199,7 +199,7 @@ public class DroneAutoController implements IDroneState {
         //System.out.println("W: " + image.getWidth());
         //System.out.println("H: " + image.getHeight());
 
-        ReturnCircle circle = detectCirclesGrayFilter(image);
+        ReturnCircle circle = detectCirclesRedFilter(image);
 
         System.out.println("Radius: " + circle.getRadius());
         /*
@@ -319,12 +319,12 @@ public class DroneAutoController implements IDroneState {
                 }
                 System.out.println("Færdig med højre");
 
-            } else if (circle.getY() < pictureHeight / 2 - pictureDeviation) {
+            } else if (circle.getY() - 20 < pictureHeight / 2 - pictureDeviation) {
                 // Ryk drone opad
                 System.out.println("Ryk " + Math.abs(circle.getY() - pictureHeight / 2 + pictureDeviation) + " længere Op");
                 if (usingCommandManager) {
                    cmd.up(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands);
+                    cmd.waitFor(timeBetweenCommands * 2);
                     cmd.hover();
                 } else {
                     drone.up();
@@ -338,7 +338,7 @@ public class DroneAutoController implements IDroneState {
                 outputText = "Nedad";
                 if (usingCommandManager) {
                     cmd.down(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands);
+                    cmd.waitFor(timeBetweenCommands * 2);
                     cmd.hover();
                 } else {
                     drone.down();
