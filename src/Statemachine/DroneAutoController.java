@@ -21,9 +21,12 @@ public class DroneAutoController implements IDroneState {
     CommandManager cmd;
     DroneVideoListener videoListener;
     QRScanner qrScanner;
-    private int flightSpeed = 5;
     boolean firstEnter = true;
     private ImageViewer imageViewer;
+
+    // Drone flight constants
+    private final int flyThroughTime = 2000;
+    private int flightSpeed = 10;
 
     boolean usingCommandManager = true;
 
@@ -38,9 +41,9 @@ public class DroneAutoController implements IDroneState {
     private final int pictureHeight = 720;
     private final long FLYFORWARDCONST = 100000;
     private final int MAXALTITUDE = 3000; //3 meters
-    private final int optimalCircleRadius = 90;
-    private final int optimalCircleRadiusDeviation = 50;
-    private final int timeBetweenCommands = 10;
+    private final int optimalCircleRadius = 120;
+    private final int optimalCircleRadiusDeviation = 30;
+    private final int timeBetweenCommands = 20;
 
     // Statemachines
     private DroneStates currentState;
@@ -104,7 +107,7 @@ public class DroneAutoController implements IDroneState {
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             cmd.takeOff();
-            cmd.up(flightSpeed).doFor(100);
+            cmd.up(flightSpeed).doFor(500);
             //cmd.landing();
             firstEnter = false;
         }
@@ -119,6 +122,7 @@ public class DroneAutoController implements IDroneState {
                 break;
 
             case Evaluation:
+                cmd.landing();
                 evaluate();
                 break;
 
@@ -213,26 +217,18 @@ public class DroneAutoController implements IDroneState {
 
                 case FlyThrough:
                     // Flyv ligeud og fortsæt i x sekunder..
-                    for (int i = 0; i < FLYFORWARDCONST; i++) {
-                        if (usingCommandManager) {
-                            cmd.forward(flightSpeed).doFor(timeBetweenCommands);
-                    /*
-                    try {
-                        cmd.wait(timeBetweenCommands);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+                    if(usingCommandManager) {
+                        cmd.forward(flightSpeed).doFor(flyThroughTime);
+                        cmd.hover();
+                    } else {
+                        drone.forward();
+                        cmd.hover();
                     }
-                    */
-                            cmd.hover();
-                        } else {
-                            drone.forward();
-                            drone.hover();
-                        }
-                    }
+
                     currentState = DroneStates.Evaluation;
                     nextPort++;
                     QRValid = false;
-                    break;
             }
         }
 
