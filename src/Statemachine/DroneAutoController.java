@@ -326,7 +326,7 @@ public class DroneAutoController implements IDroneState {
                    cmd.up(flightSpeed);
                     cmd.waitFor(timeBetweenCommands * 2);
                     cmd.hover();
-                } else {
+                } else {//
                     drone.up();
                     drone.hover();
                 }
