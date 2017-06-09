@@ -44,10 +44,11 @@ public class testOpenCV {
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                long startTime = System.nanoTime();
-                ReturnCircle result = detectCirclesRedFilter(image, viewer);
-                long stopTime = System.nanoTime();
-                System.out.println((stopTime - startTime)/1000000000.0);
+                //long startTime = System.nanoTime();
+                //ReturnCircle result = detectCirclesRedFilter(image, viewer);
+                //long stopTime = System.nanoTime();
+                viewer.show(image);
+                //System.out.println((stopTime - startTime)/1000000000.0);
                 //Mat red = convertToRedHsv(image);
                 //viewer.show(red);
 

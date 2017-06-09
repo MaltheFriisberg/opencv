@@ -13,6 +13,7 @@ import java.awt.image.DataBufferByte;
 public class ImageViewer {
     private JLabel imageView;
     private JFrame frame;
+    private FlowLayout layout;
     public ImageViewer() {
         createJFrame("");
     }
@@ -39,10 +40,13 @@ public class ImageViewer {
     }
 
     private JFrame createJFrame(String windowName) {
+        this.layout = new FlowLayout();
         frame = new JFrame(windowName);
+        frame.setLayout(this.layout);
+        frame.setSize(1280, 720);
         imageView = new JLabel();
         final JScrollPane imageScrollPane = new JScrollPane(imageView);
-        imageScrollPane.setPreferredSize(new Dimension(1280, 720));
+        imageScrollPane.setPreferredSize(new Dimension(1300, 800));
         frame.add(imageScrollPane, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         return frame;

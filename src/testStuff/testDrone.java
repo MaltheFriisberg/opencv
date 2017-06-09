@@ -152,12 +152,12 @@ public class testDrone implements IARDrone {
 
     }
 
-    @Override
+
     public void addExceptionListener(IExceptionListener iExceptionListener) {
 
     }
 
-    @Override
+
     public void removeExceptionListener(IExceptionListener iExceptionListener) {
 
     }
