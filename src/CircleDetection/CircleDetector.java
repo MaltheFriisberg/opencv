@@ -276,7 +276,7 @@ public class CircleDetector {
             }
         }
 
-        if(biggestCircle.getRadius() > 50) {
+        if(biggestCircle.getRadius() > 80) {
             return biggestCircle;
         } else {
             return new ReturnCircle(0,0,-1);

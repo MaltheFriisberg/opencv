@@ -28,7 +28,7 @@ public class DroneAutoController implements IDroneState {
     static public String droneStateText;
 
     // Drone flight constants
-    private final int flyThroughTime = 2000;
+    private final int flyThroughTime = 3000;
     private int flightSpeed = 10;
 
     boolean usingCommandManager = true;
@@ -39,14 +39,14 @@ public class DroneAutoController implements IDroneState {
 
     // Line up konstanter
     //static public BufferedImage autoControllerImage;
-    private final int pictureDeviation = 100;
+    private final int pictureDeviation = 80;
     private final int pictureWidth = 1280;
     private final int pictureHeight = 720;
     private final long FLYFORWARDCONST = 100000;
     private final int MAXALTITUDE = 3000; //3 meters
-    private final int optimalCircleRadius = 230;
+    private final int optimalCircleRadius = 260;
     private final int optimalCircleRadiusDeviation = 30;
-    private final int timeBetweenCommands = 10;
+    private final int timeBetweenCommands = 5;
 
     // Statemachines
     private DroneStates currentState;
@@ -100,6 +100,7 @@ public class DroneAutoController implements IDroneState {
 
         currentState = DroneStates.Approach;
         approachStates = ApproachStates.CircleLineUp;
+        firstEnter = true;
     }
 
 
@@ -111,7 +112,7 @@ public class DroneAutoController implements IDroneState {
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             cmd.takeOff();
-          //  cmd.landing();
+            cmd.landing();
             firstEnter = false;
         }
 
@@ -136,7 +137,7 @@ public class DroneAutoController implements IDroneState {
 
     public void searchRing(BufferedImage image) {
 
-        ReturnCircle circle = detectCirclesRedFilter(image);
+        ReturnCircle circle = detectCirclesGrayFilter(image);
 
         if (circle.getRadius() != -1) {
             currentState = DroneStates.Approach;
@@ -199,7 +200,7 @@ public class DroneAutoController implements IDroneState {
         //System.out.println("W: " + image.getWidth());
         //System.out.println("H: " + image.getHeight());
 
-        ReturnCircle circle = detectCirclesRedFilter(image);
+        ReturnCircle circle = detectCirclesGrayFilter(image);
 
         System.out.println("Radius: " + circle.getRadius());
         /*
@@ -324,7 +325,7 @@ public class DroneAutoController implements IDroneState {
                 System.out.println("Ryk " + Math.abs(circle.getY() - pictureHeight / 2 + pictureDeviation) + " længere Op");
                 if (usingCommandManager) {
                    cmd.up(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands * 2);
+                    cmd.waitFor(timeBetweenCommands);
                     cmd.hover();
                 } else {//
                     drone.up();
@@ -338,7 +339,7 @@ public class DroneAutoController implements IDroneState {
                 outputText = "Nedad";
                 if (usingCommandManager) {
                     cmd.down(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands * 2);
+                    cmd.waitFor(timeBetweenCommands);
                     cmd.hover();
                 } else {
                     drone.down();
