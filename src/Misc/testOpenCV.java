@@ -1,6 +1,7 @@
 package Misc;
 
 import CircleDetection.CircleDetector;
+import Util.DroneDebugWindow;
 import Util.ImageViewer;
 import Util.ReturnCircle;
 import org.opencv.core.*;
@@ -37,6 +38,7 @@ public class testOpenCV {
         Mat mat = new Mat();
         BufferedImage image;
         ImageViewer viewer = new ImageViewer();
+        DroneDebugWindow debugWindow = new DroneDebugWindow();
 
         for (int i = 178; i <565; i++) {
             String imagepath = "Resources/pictures720p/image"+i+".jpg";
@@ -47,7 +49,8 @@ public class testOpenCV {
                 //long startTime = System.nanoTime();
                 //ReturnCircle result = detectCirclesRedFilter(image, viewer);
                 //long stopTime = System.nanoTime();
-                viewer.show(image);
+                //viewer.show(image);
+                debugWindow.imageUpdated(image, ""+i, ""+i);
                 //System.out.println((stopTime - startTime)/1000000000.0);
                 //Mat red = convertToRedHsv(image);
                 //viewer.show(red);

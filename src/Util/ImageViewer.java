@@ -34,6 +34,7 @@ public class ImageViewer {
 
     public void show(BufferedImage image) {
         imageView.setIcon(new ImageIcon(image));
+
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -43,10 +44,10 @@ public class ImageViewer {
         this.layout = new FlowLayout();
         frame = new JFrame(windowName);
         frame.setLayout(this.layout);
-        frame.setSize(1280, 720);
+        frame.setSize(1280, 1000);
         imageView = new JLabel();
         final JScrollPane imageScrollPane = new JScrollPane(imageView);
-        imageScrollPane.setPreferredSize(new Dimension(1300, 800));
+        imageScrollPane.setPreferredSize(new Dimension(1280, 1000));
         frame.add(imageScrollPane, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         return frame;
