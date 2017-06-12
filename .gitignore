@@ -47,3 +47,6 @@ fabric.properties
 
 ##Ignore specific project settings
 *.iml
+
+##Git merge files
+*.orig

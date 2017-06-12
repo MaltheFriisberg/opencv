@@ -102,6 +102,7 @@ public class DroneAutoController implements IDroneState {
         approachStates = ApproachStates.CircleLineUp;
     }
 
+    public void start() {
 
     public void updateStateMachine(BufferedImage image) {
 
@@ -153,6 +154,7 @@ public class DroneAutoController implements IDroneState {
                 drone.hover();
             }
         }
+
     }
 
     @Override
@@ -191,6 +193,7 @@ public class DroneAutoController implements IDroneState {
                 drone.hover();
             }
         }
+        currentState = DroneStates.Approach;
     }
 
     @Override
@@ -227,6 +230,10 @@ public class DroneAutoController implements IDroneState {
                         drone.forward();
                         cmd.hover();
                     }
+                }
+                break;
+            case FlyThrough:
+                // Flyv ligeud og fortsæt i x sekunder..
 
                     currentState = DroneStates.Evaluation;
                     nextPort++;

@@ -1,13 +1,25 @@
-package CircleDetection;
+package Util;
+
+import org.opencv.core.Mat;
+
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Pyke-Laptop on 19-04-2017.
  */
 public class ReturnCircle {
-    public ReturnCircle(double x, double y, int radius) {
+    Mat image;
+
+    public Mat getImage() {
+        return image;
+    }
+
+    public ReturnCircle(double x, double y, int radius, Mat image) {
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.image = image;
+
     }
 
     public ReturnCircle(ReturnCircle returnCircle) {
@@ -24,7 +36,9 @@ public class ReturnCircle {
         return x;
     }
 
-    public double getY() { return y; }
+    public double getY() {
+        return y;
+    }
 
     public int getRadius() {
         return radius;

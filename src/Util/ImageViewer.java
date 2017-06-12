@@ -43,11 +43,15 @@ public class ImageViewer {
         stateText.setSelectedTextColor(Color.yellow);
         //stateText.setText(droneStateText);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     private JFrame createJFrame(String windowName) {
+        this.layout = new FlowLayout();
         frame = new JFrame(windowName);
+        frame.setLayout(this.layout);
+        frame.setSize(1280, 1000);
         imageView = new JLabel();
         final JScrollPane imageScrollPane = new JScrollPane(imageView);
         imageScrollPane.setPreferredSize(new Dimension(1500, 720));
