@@ -29,7 +29,7 @@ public class testAutoController {
             String imagepath = "Resources/newpictures/image"+i+".jpg";
             try {
                 image = ImageIO.read(new File(imagepath));
-                detectCirclesGrayFilter(image, viewer);
+                //detectCirclesGrayFilter(image, viewer);
                 //controller.updateImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
