@@ -136,7 +136,7 @@ public class DroneAutoController implements IDroneState {
 
     public void searchRing(BufferedImage image) {
 
-        ReturnCircle circle = detectCirclesRedFilter(image);
+        ReturnCircle circle = detectCirclesGrayFilter(image);
 
         if (circle.getRadius() != -1) {
             currentState = DroneStates.Approach;
@@ -199,7 +199,7 @@ public class DroneAutoController implements IDroneState {
         //System.out.println("W: " + image.getWidth());
         //System.out.println("H: " + image.getHeight());
 
-        ReturnCircle circle = detectCirclesRedFilter(image);
+        ReturnCircle circle = detectCirclesGrayFilter(image);
 
         System.out.println("Radius: " + circle.getRadius());
         /*
