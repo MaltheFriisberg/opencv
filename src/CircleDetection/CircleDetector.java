@@ -19,6 +19,7 @@ public class CircleDetector {
     //public static ImageViewer viewer = new ImageViewer();
 
     public static ReturnCircle detectCirclesRedFilter(BufferedImage img) {
+
         if(img != null) {
             Mat circles = new Mat();
 
@@ -147,8 +148,8 @@ public class CircleDetector {
             }
             Point imageCenter = new Point(320,180);
             Point center = new Point(x, y);
-            // System.out.println("ImageCenter calculated to "+center);
-            pointFeaturesToCircleCenter(image, center);
+            System.out.println("ImageCenter calculated to "+center);
+            //pointFeaturesToCircleCenter(image, center);
 
             //Image center
 

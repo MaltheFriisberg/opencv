@@ -74,6 +74,8 @@ public class DroneAutoController implements IDroneState {
 
             drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
 
+            //drone.getCommandManager().setWifiMode(WifiM)
+
             //drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
 
             //drone.getVideoManager().connect(1337);
@@ -112,7 +114,6 @@ public class DroneAutoController implements IDroneState {
     public void updateStateMachine(BufferedImage image) {
 
 
-
         System.out.println(currentState.toString());
         droneStateText = currentState.toString();
 
@@ -120,8 +121,9 @@ public class DroneAutoController implements IDroneState {
 
         if (firstEnter) {
             System.out.println("TAKE OFF!");
+            debugWindow.updateDirection("TAKE OFF");
             cmd.takeOff();
-            cmd.landing();
+            //cmd.landing();
             firstEnter = false;
         }
 
@@ -146,7 +148,10 @@ public class DroneAutoController implements IDroneState {
 
     public void searchRing(BufferedImage image) {
 
-        ReturnCircle circle = detectCirclesGrayFilter(image);
+        ReturnCircle circle = detectCirclesRedFilter(image);
+
+        debugWindow.imageUpdated(circle.getImage());
+
 
         if (circle.getRadius() != -1) {
             currentState = DroneStates.Approach;

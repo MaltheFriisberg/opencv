@@ -6,9 +6,11 @@ import Util.ImageViewer;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.video.ImageListener;
+import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;
 
+import static CircleDetection.CircleDetector.testRedFilter;
 
 
 /**
@@ -42,8 +44,10 @@ public class DroneVideoListener implements ImageListener {
         counter++;
         if (counter % 30 == 0) {
             droneAutoController.updateStateMachine(bufferedImage);
+            Mat test = testRedFilter(bufferedImage);
+            debugWindow.imageUpdated(test);
             //detectAndShowCircles(bufferedImage, this.imageViewer);
-            this.debugWindow.imageUpdated(bufferedImage);
+            //this.debugWindow.imageUpdated(bufferedImage);
 
         }
 

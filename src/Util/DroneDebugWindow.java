@@ -72,15 +72,18 @@ public class DroneDebugWindow {
     }
 
     public void imageUpdated(Mat image) {
-        JLabel imageLabel = new JLabel(new ImageIcon(toBufferedImage(image)));
-        //this.droneStateLabel.setText(droneState);
-        //this.bottomLeftLabel.setText(droneState);
-        //this.bottomRightLabel.setText(direction);
+        if(image != null) {
+            JLabel imageLabel = new JLabel(new ImageIcon(toBufferedImage(image)));
+            //this.droneStateLabel.setText(droneState);
+            //this.bottomLeftLabel.setText(droneState);
+            //this.bottomRightLabel.setText(direction);
 
-        //imageIcon.setImage(image);
-        middlepanel.removeAll();
-        middlepanel.add(imageLabel);
-        frame.pack();
+            //imageIcon.setImage(image);
+            middlepanel.removeAll();
+            middlepanel.add(imageLabel);
+            frame.pack();
+        }
+
     }
 
     public Image toBufferedImage(Mat matrix){
