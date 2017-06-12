@@ -20,9 +20,9 @@ public class testAutoController {
     public static void main(String[] args) {
         IARDrone drone = new testDrone();
         ImageViewer viewer = new ImageViewer();
-        DroneAutoController controller = new DroneAutoController(drone);
+        //DroneAutoController controller = new DroneAutoController(drone);
         BufferedImage image;
-        controller.start();
+        //controller.start();
 
         for(int i = 0; i < 3818; i++) {
 
@@ -30,7 +30,7 @@ public class testAutoController {
             try {
                 image = ImageIO.read(new File(imagepath));
                 detectCirclesGrayFilter(image, viewer);
-                controller.updateImage(image);
+                //controller.updateImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }

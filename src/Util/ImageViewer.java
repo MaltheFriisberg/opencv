@@ -7,8 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-import static Statemachine.DroneAutoController.droneStateText;
-import static Statemachine.DroneAutoController.outputText;
+
 
 /**
  * Created by malthe on 3/10/17.
@@ -39,7 +38,7 @@ public class ImageViewer {
     public void show(BufferedImage image) {
         imageView.setIcon(new ImageIcon(image));
         frame.setLocationRelativeTo(null);
-        textOutput.setText(outputText);
+        //textOutput.setText(outputText);
         stateText.setSelectedTextColor(Color.yellow);
         //stateText.setText(droneStateText);
         frame.pack();
@@ -48,9 +47,9 @@ public class ImageViewer {
     }
 
     private JFrame createJFrame(String windowName) {
-        this.layout = new FlowLayout();
+        //this.layout = new FlowLayout();
         frame = new JFrame(windowName);
-        frame.setLayout(this.layout);
+        //frame.setLayout(this.layout);
         frame.setSize(1280, 1000);
         imageView = new JLabel();
         final JScrollPane imageScrollPane = new JScrollPane(imageView);

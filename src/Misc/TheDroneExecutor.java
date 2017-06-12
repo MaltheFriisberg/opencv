@@ -2,11 +2,11 @@ package Misc; /**
  * Created by malthe on 3/15/17.
  */
 
-<<<<<<< HEAD
+import org.opencv.core.Core;
 import Statemachine.DroneAutoController;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
-=======
+
 
 import Misc.DroneVideoListener;
 import Statemachine.DroneAutoController;
@@ -24,28 +24,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
->>>>>>> malthe
+
 
 public class TheDroneExecutor {
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws InterruptedException
     {
-        //PaperChase pc = new PaperChase();
-<<<<<<< HEAD
         //ARDrone drone = new ARDrone();
         DroneAutoController droneAutoController = new DroneAutoController();
-=======
-        IARDrone drone = new ARDrone();
 
 
-
-        drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
-        drone.getVideoManager().addImageListener(new DroneVideoRecorder());
-
-        drone.start();
-
->>>>>>> malthe
     }
 
 }

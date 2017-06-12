@@ -1,6 +1,7 @@
 package Misc;
 
 import CircleDetection.CircleDetector;
+import Util.DroneDebugWindow;
 import Util.ImageViewer;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -53,7 +54,7 @@ public class testOpenCV {
                 //System.out.println((stopTime - startTime)/1000000000.0);
                 //Mat red = convertToRedHsv(image);
                 //viewer.show(red);
-                debugWindow.imageUpdated(result, ""+i, ""+i);
+                debugWindow.imageUpdated(result);
 
                 //1 fps pcmasterrace
                 Thread.sleep(200);

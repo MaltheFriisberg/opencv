@@ -1,6 +1,7 @@
 package Misc;
 
 import Statemachine.DroneAutoController;
+import Util.DroneDebugWindow;
 import Util.ImageViewer;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
@@ -8,7 +9,7 @@ import de.yadrone.base.video.ImageListener;
 
 import java.awt.image.BufferedImage;
 
-import static CircleDetection.CircleDetector.detectAndShowCircles;
+
 
 /**
  * Created by malthe on 3/15/17.
@@ -22,13 +23,16 @@ public class DroneVideoListener implements ImageListener {
     private int counter;
     //private BufferedImage img;
     DroneAutoController droneAutoController;
+    private DroneDebugWindow debugWindow;
 
-    public DroneVideoListener(DroneAutoController droneAutoController, ARDrone drone) {
+
+    public DroneVideoListener(DroneAutoController droneAutoController, ARDrone drone, DroneDebugWindow debugWindow) {
         this.droneAutoController = droneAutoController;
         this.drone = drone;
         this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
         this.openCV = new testOpenCV();
+        this.debugWindow = debugWindow;
 
     }
 
@@ -37,27 +41,13 @@ public class DroneVideoListener implements ImageListener {
 
         counter++;
         if (counter % 30 == 0) {
-            droneAutoController.updateImage(bufferedImage);
-            detectAndShowCircles(bufferedImage, this.imageViewer);
-
-        imageViewer.show(bufferedImage);
-
-    /*
-        if(counter % 5 == 0) {
-            System.out.println("-------");
-            System.out.println("Bredde: " + bufferedImage.getWidth());
-            //detectAndShowCircles(bufferedImage, this.imageViewer);
-        }
-*/
-        if (counter % 15 == 0) {
             droneAutoController.updateStateMachine(bufferedImage);
-            counter = 0;
+            //detectAndShowCircles(bufferedImage, this.imageViewer);
+            this.debugWindow.imageUpdated(bufferedImage);
+
         }
-            //img = bufferedImage;
-        //}
+
+
     }
 
-    //public BufferedImage getImg() {
-      //  return img;
-    //}
 }

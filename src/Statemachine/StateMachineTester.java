@@ -1,7 +1,8 @@
 package Statemachine;
 
-import CircleDetection.ReturnCircle;
+
 import Util.ImageViewer;
+import Util.ReturnCircle;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -44,7 +45,7 @@ public class StateMachineTester {
 
             try {
                 image = ImageIO.read(new File(imagepath));
-                centerDroneToRing(detectCirclesRedFilter(image));
+                //centerDroneToRing(detectCirclesRedFilter(image));
                 System.out.println("----------------");
 
                 //1 fps pcmasterrace

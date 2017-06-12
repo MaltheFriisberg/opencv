@@ -27,7 +27,7 @@ public class DroneVideoRecorder implements ImageListener{
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
         //System.out.println("saving picture to disk");
-        detectCirclesRedFilter(bufferedImage, this.viewer);
+        detectCirclesRedFilter(bufferedImage);
         //viewer.show(bufferedImage);
         saveImgToDisk(bufferedImage);
     }

@@ -58,23 +58,24 @@ public class DroneDebugWindow {
         frame.setVisible(true);
     }
 
-    public void imageUpdated(BufferedImage image, String droneState, String direction) {
+    public void imageUpdated(BufferedImage image) {
         JLabel imageLabel = new JLabel(new ImageIcon(image));
-        this.droneStateLabel.setText(droneState);
-        //this.bottomLeftLabel.setText(droneState);
-        this.bottomRightLabel.setText(direction);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                middlepanel.removeAll();
+                middlepanel.add(imageLabel);
+                frame.pack();
+            }
+        });
 
-        //imageIcon.setImage(image);
-        middlepanel.removeAll();
-        middlepanel.add(imageLabel);
-        frame.pack();
     }
 
-    public void imageUpdated(Mat image, String droneState, String direction) {
+    public void imageUpdated(Mat image) {
         JLabel imageLabel = new JLabel(new ImageIcon(toBufferedImage(image)));
-        this.droneStateLabel.setText(droneState);
+        //this.droneStateLabel.setText(droneState);
         //this.bottomLeftLabel.setText(droneState);
-        this.bottomRightLabel.setText(direction);
+        //this.bottomRightLabel.setText(direction);
 
         //imageIcon.setImage(image);
         middlepanel.removeAll();
@@ -99,10 +100,25 @@ public class DroneDebugWindow {
     }
 
     public void updateState(String state) {
-        this.droneStateLabel.setText(state);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                droneStateLabel.setText(state);
+            }
+        });
+
     }
 
     public void updateDirection(String direction) {
-        this.bottomRightLabel.setText(direction);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                bottomRightLabel.setText(direction);
+            }
+        });
+
+
     }
 }
