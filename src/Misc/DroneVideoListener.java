@@ -35,7 +35,6 @@ public class DroneVideoListener implements ImageListener {
 
         counter++;
 
-        imageViewer.show(bufferedImage);
 
     /*
         if(counter % 5 == 0) {
@@ -46,6 +45,7 @@ public class DroneVideoListener implements ImageListener {
 */
         if (counter % 15 == 0) {
             droneAutoController.updateStateMachine(bufferedImage);
+            imageViewer.show(bufferedImage);
             counter = 0;
         }
             //img = bufferedImage;

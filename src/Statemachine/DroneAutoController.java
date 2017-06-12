@@ -78,7 +78,7 @@ public class DroneAutoController implements IDroneState {
             videoListener = new DroneVideoListener(this, drone);
             System.out.println("Line 10");
             drone.getVideoManager().addImageListener(videoListener);
-           // drone.toggleCamera();
+            // drone.toggleCamera();
         } catch (Exception exc) {
             exc.printStackTrace();
         }
@@ -111,7 +111,7 @@ public class DroneAutoController implements IDroneState {
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             cmd.takeOff();
-          //  cmd.landing();
+            //cmd.landing();
             firstEnter = false;
         }
 
@@ -220,7 +220,7 @@ public class DroneAutoController implements IDroneState {
                 case FlyThrough:
                     // Flyv ligeud og fortsæt i x sekunder..
 
-                    if(usingCommandManager) {
+                    if (usingCommandManager) {
                         cmd.forward(flightSpeed).doFor(flyThroughTime);
                         cmd.hover();
                     } else {
@@ -250,113 +250,181 @@ public class DroneAutoController implements IDroneState {
     @Override
     public void landing() {
         if (usingCommandManager) {
-           // cmd.landing();
+            // cmd.landing();
             System.exit(0);
         } else {
-        //    drone.landing();
+            //    drone.landing();
         }
         isRunning = false;
     }
 
     public void centerDroneToRing(ReturnCircle circle, BufferedImage image) {
         if (circle.getRadius() != -1) {
-
-            System.out.println("\n\n\n\n\n");
-
-            if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
-                // Flyv længere væk
-                System.out.println("Ryk " + Math.abs(circle.getRadius() - optimalCircleRadius - pictureDeviation) + " længere til tilbage");
-                outputText = "Længere væk";
-                if (usingCommandManager) {
-                   cmd.backward(flightSpeed);
-                   cmd.waitFor(timeBetweenCommands);
-                    cmd.hover();
+            int zLineUp = circle.getRadius() - optimalCircleRadius;
+            int xLineUp = (int) (circle.getX() - pictureWidth / 2);
+            int yLineUp = (int) (circle.getY() - pictureHeight / 2);
+            System.out.println("Z-axis: " + zLineUp);
+            System.out.println("X-axis: " + xLineUp);
+            System.out.println("y-axis: " + yLineUp);
+            String doCommand = "";
+            if (Math.abs(xLineUp) > Math.abs(yLineUp) && Math.abs(xLineUp) > Math.abs(zLineUp)) {
+                // X er størst
+                if (Math.abs(yLineUp) > Math.abs(zLineUp)) {
+                    // Y er større end Z
+                    doCommand = "xyz";
                 } else {
-                    drone.backward();
-                    drone.hover();
+                    // Z er større end Y
+                    doCommand = "xzy";
                 }
-                System.out.println("Færdig med længere væk");
-
-            } else if (circle.getRadius() < optimalCircleRadius - pictureDeviation) { // Dronen er for tæt på cirklen
-               //  Flyv tættere på
-                System.out.println("Ryk " + Math.abs(circle.getRadius() - optimalCircleRadius - pictureDeviation) + " længere til frem");
-                outputText = "Tættere på";
-                if (usingCommandManager) {
-                   cmd.forward(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands);
-                    cmd.hover();
+            } else if (Math.abs(yLineUp) > Math.abs(xLineUp) && Math.abs(yLineUp) > Math.abs(zLineUp)) {
+                // Y er størst
+                if (Math.abs(xLineUp) > Math.abs(zLineUp)) {
+                    // X er større end Z
+                    doCommand = "yxz";
                 } else {
-                    drone.forward();
-                    drone.hover();
+                    // Z er større end X
+                    doCommand = "yzx";
                 }
-                System.out.println("Færdig med tættere på");
-
-            } else if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
-                // Ryk drone til venstre
-                System.out.println("Ryk " + Math.abs(circle.getX() - pictureWidth / 2 + pictureDeviation) + " længere til Venstre");
-                outputText = "Venstre";
-                if (usingCommandManager) {
-                    cmd.goLeft(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands);
-                    cmd.hover();
+            } else if (Math.abs(zLineUp) > Math.abs(xLineUp) && Math.abs(zLineUp) > Math.abs(yLineUp)) {
+                // Z er størst
+                if (Math.abs(xLineUp) > Math.abs(yLineUp)) {
+                    // X er større end Y
+                    doCommand = "zxy";
                 } else {
-                    drone.goLeft();
-                    drone.hover();
+                    // Y er større end X
+                    doCommand = "zyx";
                 }
-                System.out.println("Færdig med venstre");
-
-            } else if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
-                // Ryk drone til højre
-                System.out.println("Ryk " + Math.abs(circle.getX() - pictureWidth / 2 + pictureDeviation) + " længere til Højre");
-                outputText = "Højre";
-                if (usingCommandManager) {
-                    cmd.goRight(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands);
-                   cmd.hover();
-                } else {
-                    drone.goRight();
-                    drone.hover();
-                }
-                System.out.println("Færdig med højre");
-
-            } else if (circle.getY() - 20 < pictureHeight / 2 - pictureDeviation) {
-                // Ryk drone opad
-                System.out.println("Ryk " + Math.abs(circle.getY() - pictureHeight / 2 + pictureDeviation) + " længere Op");
-                if (usingCommandManager) {
-                   cmd.up(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands * 2);
-                    cmd.hover();
-                } else {//
-                    drone.up();
-                    drone.hover();
-                }
-                outputText = "OP";
-
-            } else if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
-                // Ryk drone nedad
-                System.out.println("Ryk " + Math.abs(circle.getY() - pictureHeight / 2 + pictureDeviation) + " længere Ned");
-                outputText = "Nedad";
-                if (usingCommandManager) {
-                    cmd.down(flightSpeed);
-                    cmd.waitFor(timeBetweenCommands * 2);
-                    cmd.hover();
-                } else {
-                    drone.down();
-                    drone.hover();
-                }
-                System.out.println("Færdig med nedad");
-
             } else {
-                outputText = "Perfekt centret! Jubiiii!";
-                if (QRValid == true) {
-                    approachStates = ApproachStates.FlyThrough;
-                } else {
-                    searchQR(image);
+                // Burde ikke være muligt?
+            }
+            System.out.println(doCommand);
+            for (int i = 0; i < doCommand.length(); i++) {
+                switch (doCommand.charAt(i)) {
+                    case 'x':
+                        if (!xAxisAdjust(circle)) { // Dronen er ikke linet up på x-aksen, så for at undgå flere commands for hver billede, break if løkken.
+                            i = 5;
+                        }
+                        break;
+                    case 'y':
+                        if (!yAxisAdjust(circle)) { // Dronen er ikke linet up på y-aksen, så for at undgå flere commands for hver billede, break if løkken.
+                            i = 5;
+                        }
+                        break;
+                    case 'z':
+                        if (!zAxisAdjust(circle)) { // Dronen er ikke linet up på z-aksen, så for at undgå flere commands for hver billede, break if løkken.
+                            i = 5;
+                        }
+                        break;
+                }
+                if (i == doCommand.length() - 1) { // Hvis dronen kom igennem alle commands med true (Korrekt lineup)
+                    outputText = "Perfekt centret! Jubiiii!";
+                    if (QRValid) {
+                        approachStates = ApproachStates.FlyThrough;
+                    } else {
+                        searchQR(image);
+                    }
                 }
             }
-
-            System.out.println("Done her");
+            System.out.println("\n\n\n\n\n");
         }
+    }
+
+    boolean xAxisAdjust(ReturnCircle circle) {
+        if (circle.getX() < pictureWidth / 2 - pictureDeviation) {
+            // Ryk drone til venstre
+            System.out.println("Ryk " + Math.abs(circle.getX() - pictureWidth / 2 + pictureDeviation) + " længere til Venstre");
+            outputText = "Venstre";
+            if (usingCommandManager) {
+                cmd.goLeft(flightSpeed);
+                cmd.waitFor(timeBetweenCommands);
+                cmd.hover();
+            } else {
+                drone.goLeft();
+                drone.hover();
+            }
+            System.out.println("Færdig med venstre");
+        } else if (circle.getX() > pictureWidth / 2 + pictureDeviation) {
+            // Ryk drone til højre
+            System.out.println("Ryk " + Math.abs(circle.getX() - pictureWidth / 2 + pictureDeviation) + " længere til Højre");
+            outputText = "Højre";
+            if (usingCommandManager) {
+                cmd.goRight(flightSpeed);
+                cmd.waitFor(timeBetweenCommands);
+                cmd.hover();
+            } else {
+                drone.goRight();
+                drone.hover();
+            }
+            System.out.println("Færdig med højre");
+        } else { // Perfekt center på x-aksen
+            return true;
+        }
+        return false;
+    }
+
+    boolean yAxisAdjust(ReturnCircle circle) {
+        if (circle.getY() - 20 < pictureHeight / 2 - pictureDeviation) {
+            // Ryk drone opad
+            System.out.println("Ryk " + Math.abs(circle.getY() - pictureHeight / 2 + pictureDeviation) + " længere Op");
+            if (usingCommandManager) {
+                cmd.up(flightSpeed);
+                cmd.waitFor(timeBetweenCommands);
+                cmd.hover();
+            } else {//
+                drone.up();
+                drone.hover();
+            }
+            outputText = "OP";
+        } else if (circle.getY() > pictureHeight / 2 + pictureDeviation) {
+            // Ryk drone nedad
+            System.out.println("Ryk " + Math.abs(circle.getY() - pictureHeight / 2 + pictureDeviation) + " længere Ned");
+            outputText = "Nedad";
+            if (usingCommandManager) {
+                cmd.down(flightSpeed);
+                cmd.waitFor(timeBetweenCommands);
+                cmd.hover();
+            } else {
+                drone.down();
+                drone.hover();
+            }
+            System.out.println("Færdig med nedad");
+        } else { // Perfekt center på y aksen
+            return true;
+        }
+        return false;
+    }
+
+    boolean zAxisAdjust(ReturnCircle circle) {
+        if (circle.getRadius() > optimalCircleRadius + pictureDeviation) { // Dronen er for langt væk fra circlen
+            // Flyv længere væk
+            System.out.println("Ryk " + Math.abs(circle.getRadius() - optimalCircleRadius - pictureDeviation) + " længere til tilbage");
+            outputText = "Længere væk";
+            if (usingCommandManager) {
+                cmd.backward(flightSpeed);
+                cmd.waitFor(timeBetweenCommands);
+                cmd.hover();
+            } else {
+                drone.backward();
+                drone.hover();
+            }
+            System.out.println("Færdig med længere væk");
+        } else if (circle.getRadius() < optimalCircleRadius - pictureDeviation) { // Dronen er for tæt på cirklen
+            //  Flyv tættere på
+            System.out.println("Ryk " + Math.abs(circle.getRadius() - optimalCircleRadius - pictureDeviation) + " længere til frem");
+            outputText = "Tættere på";
+            if (usingCommandManager) {
+                cmd.forward(flightSpeed);
+                cmd.waitFor(timeBetweenCommands);
+                cmd.hover();
+            } else {
+                drone.forward();
+                drone.hover();
+            }
+            System.out.println("Færdig med tættere på");
+        } else { // Perfekt afstand
+            return true;
+        }
+        return false;
     }
 
     //public void updateImage(BufferedImage image) {
