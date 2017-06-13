@@ -123,7 +123,7 @@ public class DroneAutoController implements IDroneState {
             System.out.println("TAKE OFF!");
             debugWindow.updateDirection("TAKE OFF");
             cmd.takeOff();
-            cmd.landing();
+            //cmd.landing();
             firstEnter = false;
         }
 
@@ -335,7 +335,7 @@ public class DroneAutoController implements IDroneState {
                 }
                 System.out.println("Færdig med højre");
 
-            } else if (circle.getY() - 20 < pictureHeight / 2 - pictureDeviation) {
+            } else if (circle.getY() - 5 < pictureHeight / 2 - pictureDeviation) {
                 // Ryk drone opad
                 this.debugWindow.updateDirection("Op");
                 if (usingCommandManager) {
