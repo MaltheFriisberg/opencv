@@ -107,7 +107,10 @@ public class DroneDebugWindow {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+
                 droneStateLabel.setText(state);
+                updateStateLabelColor(state, droneStateLabel);
+
             }
         });
 
@@ -118,10 +121,49 @@ public class DroneDebugWindow {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+
                 bottomRightLabel.setText(direction);
+                updateDirectionLabelColor(direction, bottomRightLabel);
             }
         });
 
 
+    }
+
+    private void updateStateLabelColor(String state, JLabel jLabel) {
+        switch(state) {
+            case "SearchRing":
+                jLabel.setForeground(Color.GREEN);
+                break;
+            case "Approach":
+                jLabel.setForeground(Color.BLUE);
+                break;
+            case "Evaluation":
+                jLabel.setForeground(Color.RED);
+            case "Landing":
+                jLabel.setForeground(Color.BLACK);
+                break;
+        }
+    }
+    private void updateDirectionLabelColor(String direction, JLabel jLabel) {
+        switch(direction) {
+            case "Længere væk":
+                jLabel.setForeground(Color.RED);
+                break;
+            case "Tættere på":
+                jLabel.setForeground(Color.GREEN);
+                break;
+            case "Venstre":
+                jLabel.setForeground(Color.BLUE);
+            case "Højre":
+                jLabel.setForeground(Color.BLUE);
+                break;
+            case "Op":
+                jLabel.setForeground(Color.BLACK);
+                break;
+            case "Nedad":
+                jLabel.setForeground(Color.BLACK);
+                break;
+        }
     }
 }

@@ -31,9 +31,13 @@ public class TheDroneExecutor {
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws InterruptedException
     {
-        //ARDrone drone = new ARDrone();
         DroneAutoController droneAutoController = new DroneAutoController();
 
+        /*ARDrone drone = new ARDrone();
+        drone.start();
+
+        drone.takeOff();
+        drone.hover();*/
 
     }
 
