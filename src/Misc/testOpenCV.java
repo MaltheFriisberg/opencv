@@ -16,10 +16,7 @@ import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 
-import static CircleDetection.CircleDetector.convertToRedHsv;
-
-import static CircleDetection.CircleDetector.detectCirclesRedFilter;
-import static CircleDetection.CircleDetector.testRedFilter;
+import static CircleDetection.CircleDetector.*;
 import static Util.ImageConverter.bufferedImageToMat;
 import static org.opencv.imgproc.Imgproc.circle;
 import static org.opencv.imgproc.Imgproc.rectangle;
@@ -37,11 +34,12 @@ public class testOpenCV {
     public static void main(String[] args) {
 
         Mat mat = new Mat();
-        BufferedImage image;
+        //BufferedImage image;
         //ImageViewer viewer = new ImageViewer();
         DroneDebugWindow debugWindow = new DroneDebugWindow();
+        DroneDebugWindow debugWindow1 = new DroneDebugWindow();
 
-        for (int i = 178; i <565; i++) {
+        /*for (int i = 178; i <565; i++) {
             String imagepath = "Resources/pictures720p/image"+i+".jpg";
             //String imagepath = "Resources/qrcodes/qrcode.png";
 
@@ -66,17 +64,19 @@ public class testOpenCV {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
-        //BufferedImage image;
-        /*String imagepath = "Resources/newpictures/IMG_20170607_104612.jpg";
+        BufferedImage image;
+        String imagepath = "Resources/pictures720p/image444.jpg";
 
         try {
             image = ImageIO.read(new File(imagepath));
-            detectAndShowCircles(image, viewer);
+            debugWindow.imageUpdated(image);
+
+            debugWindow1.imageUpdated(testGrayFilter(image));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
 

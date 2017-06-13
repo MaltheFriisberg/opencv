@@ -218,5 +218,47 @@ public class CircleDetector {
         }
         return new Mat();
     }
+    public static Mat testGrayFilter(BufferedImage img) {
+        Mat image = bufferedImageToMat(img);
+        Mat gray = new Mat();
+        //Mat blurred = new Mat();
+        Mat circles = new Mat();
+
+        Imgproc.cvtColor(image, gray, Imgproc.COLOR_BGR2GRAY);
+        //Imgproc.GaussianBlur(gray, blurred, new Size(11,11),0);
+        Imgproc.HoughCircles(gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 60, 200, 20, 50, 0 );
+        //System.out.println("#rows " + circles.rows() + " #cols " + circles.cols());
+        double x = 0.0;
+        double y = 0.0;
+        int r = 0;
+        ReturnCircle[] circleArray = new ReturnCircle[10];
+
+        for( int i = 0; i < circles.rows(); i++ ) {
+            double[] data = circles.get(i, 0);
+            for (int j = 0; j < data.length; j++) {
+                x = data[0];
+                y = data[1];
+                r = (int) data[2];
+                circleArray[i] = new ReturnCircle(x,y,r, null);
+            }
+            Point imageCenter = new Point(640,320);
+            Point center = new Point(x, y);
+            System.out.println("ImageCenter calculated to "+center);
+            //pointFeaturesToCircleCenter(image, center);
+
+            //Image center
+
+            circle(gray, imageCenter, 6, new Scalar(255,255,255));
+
+            // circle center
+            circle(gray, center, 3, new Scalar(0, 255, 0), -1);
+            // circle outline
+            circle(gray, center, r, new Scalar(0, 0, 255), 10);
+
+
+            //Core.
+        }
+        return gray;
+    }
 
 }

@@ -76,7 +76,7 @@ public class DroneAutoController implements IDroneState {
 
             //drone.getCommandManager().setWifiMode(WifiM)
 
-            //drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
+            drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
 
             //drone.getVideoManager().connect(1337);
 
@@ -123,7 +123,7 @@ public class DroneAutoController implements IDroneState {
             System.out.println("TAKE OFF!");
             debugWindow.updateDirection("TAKE OFF");
             cmd.takeOff();
-            //cmd.landing();
+            cmd.landing();
             firstEnter = false;
         }
 
