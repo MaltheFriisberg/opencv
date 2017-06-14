@@ -32,7 +32,7 @@ public class TheDroneExecutor {
     public static void main(String[] args) throws InterruptedException
     {
         DroneAutoController droneAutoController = new DroneAutoController();
-        droneAutoController.startStateMachineOnMainThread();
+        //droneAutoController.startStateMachineOnMainThread();
         /*ARDrone drone = new ARDrone();
         drone.start();
 

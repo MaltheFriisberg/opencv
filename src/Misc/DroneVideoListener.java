@@ -42,18 +42,18 @@ public class DroneVideoListener implements ImageListener {
     public void imageUpdated(BufferedImage bufferedImage) {
 
         droneAutoController.updateStateMachine(bufferedImage);
-        Mat test = testRedFilter(bufferedImage);
-        debugWindow.imageUpdated(test);
+        //Mat test = testRedFilter(bufferedImage);
+        debugWindow.imageUpdated(bufferedImage);
 
-        /*counter++;
+        counter++;
         if (counter % 30 == 0) {
             droneAutoController.updateStateMachine(bufferedImage);
-            Mat test = testRedFilter(bufferedImage);
-            debugWindow.imageUpdated(test);
+            //Mat test = testRedFilter(bufferedImage);
+            //debugWindow.imageUpdated(test);
             //detectAndShowCircles(bufferedImage, this.imageViewer);
             //this.debugWindow.imageUpdated(bufferedImage);
 
-        }*/
+        }
 
 
     }

@@ -3,6 +3,7 @@ package Statemachine;
 
 import Interfaces.IDroneState;
 import Misc.DroneVideoListener;
+import Threads.WorkerThread;
 import Util.*;
 import Util.ReturnCircle;
 import de.yadrone.base.ARDrone;
@@ -35,7 +36,7 @@ public class DroneAutoController implements IDroneState {
     // Drone flight constants
     private final int flyThroughTime = 3000;
     private int flightSpeed = 10;
-
+    private Thread wThread;
     boolean usingCommandManager = true;
 
     // Ring manager
@@ -102,7 +103,7 @@ public class DroneAutoController implements IDroneState {
         this.videoListener = new DroneVideoListener(this, drone);
         this.drone.getVideoManager().addImageListener(this.videoListener);
         */
-
+        this.wThread = new Thread(new WorkerThread(this));
         qrScanner = new QRScanner();
 
 
@@ -110,57 +111,53 @@ public class DroneAutoController implements IDroneState {
         approachStates = ApproachStates.CircleLineUp;
         firstEnter = true;
     }
+    // only the worker thread should call this method!!
+    public synchronized void updateDroneState() {
 
-    public void startStateMachineOnMainThread() {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    int x = 1;
-                    BufferedImage image = imageStack.peek();
+        BufferedImage image;
 
-                    if(image != null) {
-                        image = imageStack.pop();
-                    }
-                    switch (currentState) {
-                        case SearchRing:
-                            searchRing(image);
-                            break;
+        if(!imageStack.empty()) {
+            image = imageStack.pop();
+            switch (currentState) {
+                case SearchRing:
+                    searchRing(image);
+                    break;
 
-                        case Approach:
-                            approach(image);
-                            break;
+                case Approach:
+                    approach(image);
+                    break;
 
-                        case Evaluation:
-                            evaluate();
-                            break;
+                case Evaluation:
+                    evaluate();
+                    break;
 
-                        case Landing:
-                            landing();
-                            break;
-                    }
-                }
-
+                case Landing:
+                    landing();
+                    break;
             }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();
+        }
+
 
     }
 
 
     public void updateStateMachine(BufferedImage image) {
 
+        imageStack.push(image);
+
+
 
         System.out.println(currentState.toString());
         droneStateText = currentState.toString();
 
-        this.debugWindow.updateState(this.droneStateText);
+        this.debugWindow.updateState(droneStateText);
 
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             debugWindow.updateDirection("TAKE OFF");
+            //start the worker thread
+            this.wThread.start();
             //cmd.takeOff();
             //cmd.up(50).doFor(2000);
             //cmd.waitFor(2000);
