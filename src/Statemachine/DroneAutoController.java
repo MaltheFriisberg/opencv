@@ -141,8 +141,8 @@ public class DroneAutoController implements IDroneState {
 
     }
 
-
-    public void updateStateMachine(BufferedImage image) {
+    //The video manager thread enters here, no heavy work should be done.
+    public void imageUpdated(BufferedImage image) {
 
         imageStack.push(image);
 
@@ -165,32 +165,11 @@ public class DroneAutoController implements IDroneState {
             //cmd.landing();
             firstEnter = false;
         }
-
-        /*switch (currentState) {
-            case SearchRing:
-                searchRing(image);
-                break;
-
-            case Approach:
-                approach(image);
-                break;
-
-            case Evaluation:
-                evaluate();
-                break;
-
-            case Landing:
-                landing();
-                break;
-        }*/
     }
 
     public void searchRing(BufferedImage image) {
 
         ReturnCircle circle = detectCirclesRedFilter(image);
-
-        debugWindow.imageUpdated(circle.getImage());
-
 
         if (circle.getRadius() != -1) {
             currentState = DroneStates.Approach;

@@ -15,6 +15,8 @@ import static org.opencv.imgproc.Imgproc.circle;
  * Created by malthe on 4/2/17.
  */
 public class CircleDetector {
+    private static final int imageCenterX = 640;
+    private static final int imageCenterY = 320;
 
     //public static ImageViewer viewer = new ImageViewer();
 
@@ -41,7 +43,7 @@ public class CircleDetector {
                     r = (int) data[2];
                     circleArray[i] = new ReturnCircle(x,y,r, null);
                 }
-                Point imageCenter = new Point(640,320);
+                Point imageCenter = new Point(imageCenterX, imageCenterY);
                 Point center = new Point(x, y);
                 System.out.println("ImageCenter calculated to "+center);
                 //pointFeaturesToCircleCenter(red, center);
@@ -63,7 +65,7 @@ public class CircleDetector {
 
             for(int i = 0; i < circles.rows(); i++) {
                 if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
-                    biggestCircle = new ReturnCircle(circleArray[i]);
+                    biggestCircle = new ReturnCircle(circleArray[i], red);
                 }
             }
 
@@ -146,7 +148,7 @@ public class CircleDetector {
                 r = (int) data[2];
                 circleArray[i] = new ReturnCircle(x,y,r, null);
             }
-            Point imageCenter = new Point(320,180);
+            Point imageCenter = new Point(imageCenterX,imageCenterY);
             Point center = new Point(x, y);
             System.out.println("ImageCenter calculated to "+center);
             //pointFeaturesToCircleCenter(image, center);
@@ -168,7 +170,7 @@ public class CircleDetector {
 
         for(int i = 0; i < circles.rows(); i++) {
             if(circleArray[i].getRadius() > biggestCircle.getRadius()) {
-                biggestCircle = new ReturnCircle(circleArray[i]);
+                biggestCircle = new ReturnCircle(circleArray[i], image);
             }
         }
 

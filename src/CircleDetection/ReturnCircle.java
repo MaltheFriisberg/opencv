@@ -22,10 +22,11 @@ public class ReturnCircle {
 
     }
 
-    public ReturnCircle(ReturnCircle returnCircle) {
+    public ReturnCircle(ReturnCircle returnCircle, Mat circle) {
         this.x = returnCircle.x;
         this.y = returnCircle.y;
         this.radius = returnCircle.radius;
+        this.image = circle;
     }
 
     private double x;
@@ -43,4 +44,6 @@ public class ReturnCircle {
     public int getRadius() {
         return radius;
     }
+
+
 }

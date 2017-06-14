@@ -12,15 +12,15 @@ public class WorkerThread implements Runnable {
 
     public WorkerThread(DroneAutoController controller) {
         this.controller = controller;
-        isRunning = true;
+        this.isRunning = true;
     }
     @Override
     public void run() {
-
+        //not sure if this will work
         while(isRunning) {
 
             controller.updateDroneState();
-            
+
 
         }
 
