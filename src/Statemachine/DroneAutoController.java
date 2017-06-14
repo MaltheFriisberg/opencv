@@ -117,6 +117,7 @@ public class DroneAutoController implements IDroneState {
             @Override
             public void run() {
                 while(true) {
+                    int x = 1;
                     BufferedImage image = imageStack.peek();
 
                     if(image != null) {
