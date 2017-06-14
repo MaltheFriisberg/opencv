@@ -12,6 +12,7 @@ import de.yadrone.base.command.VideoChannel;
 import de.yadrone.base.command.VideoCodec;
 
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 import static CircleDetection.CircleDetector.detectCirclesGrayFilter;
 import static CircleDetection.CircleDetector.detectCirclesRedFilter;
@@ -26,7 +27,7 @@ public class DroneAutoController implements IDroneState {
     DroneVideoListener videoListener;
     QRScanner qrScanner;
     boolean firstEnter = true;
-
+    private Stack<BufferedImage> imageStack;
     static public String outputText;
     static public String droneStateText;
     private DroneDebugWindow debugWindow;
@@ -69,18 +70,18 @@ public class DroneAutoController implements IDroneState {
             drone = new ARDrone();
 
             drone.start();
-
+            cmd = drone.getCommandManager();
             System.out.println("the drone is connected = " + drone.getNavDataManager().isConnected());
 
-            drone.getCommandManager().setVideoChannel(VideoChannel.HORI);
+            cmd.setVideoChannel(VideoChannel.HORI);
 
             //drone.getCommandManager().setWifiMode(WifiM)
 
-            drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
+            cmd.setVideoCodec(VideoCodec.H264_720P);
 
             //drone.getVideoManager().connect(1337);
 
-            cmd = drone.getCommandManager();
+
 
             videoListener = new DroneVideoListener(this, drone, this.debugWindow);
 
@@ -110,6 +111,43 @@ public class DroneAutoController implements IDroneState {
         firstEnter = true;
     }
 
+    public void startStateMachineOnMainThread() {
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    BufferedImage image = imageStack.peek();
+
+                    if(image != null) {
+                        image = imageStack.pop();
+                    }
+                    switch (currentState) {
+                        case SearchRing:
+                            searchRing(image);
+                            break;
+
+                        case Approach:
+                            approach(image);
+                            break;
+
+                        case Evaluation:
+                            evaluate();
+                            break;
+
+                        case Landing:
+                            landing();
+                            break;
+                    }
+                }
+
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+
+    }
+
 
     public void updateStateMachine(BufferedImage image) {
 
@@ -122,15 +160,15 @@ public class DroneAutoController implements IDroneState {
         if (firstEnter) {
             System.out.println("TAKE OFF!");
             debugWindow.updateDirection("TAKE OFF");
-            cmd.takeOff();
-            cmd.up(50).doFor(2000);
+            //cmd.takeOff();
+            //cmd.up(50).doFor(2000);
             //cmd.waitFor(2000);
             //cmd.up(50).doFor(2000);
             //cmd.landing();
             firstEnter = false;
         }
 
-        switch (currentState) {
+        /*switch (currentState) {
             case SearchRing:
                 searchRing(image);
                 break;
@@ -146,7 +184,7 @@ public class DroneAutoController implements IDroneState {
             case Landing:
                 landing();
                 break;
-        }
+        }*/
     }
 
     public void searchRing(BufferedImage image) {

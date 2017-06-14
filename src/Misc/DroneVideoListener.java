@@ -41,7 +41,11 @@ public class DroneVideoListener implements ImageListener {
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
 
-        counter++;
+        droneAutoController.updateStateMachine(bufferedImage);
+        Mat test = testRedFilter(bufferedImage);
+        debugWindow.imageUpdated(test);
+
+        /*counter++;
         if (counter % 30 == 0) {
             droneAutoController.updateStateMachine(bufferedImage);
             Mat test = testRedFilter(bufferedImage);
@@ -49,7 +53,7 @@ public class DroneVideoListener implements ImageListener {
             //detectAndShowCircles(bufferedImage, this.imageViewer);
             //this.debugWindow.imageUpdated(bufferedImage);
 
-        }
+        }*/
 
 
     }
