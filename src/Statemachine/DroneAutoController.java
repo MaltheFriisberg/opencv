@@ -39,7 +39,7 @@ public class DroneAutoController implements IDroneState {
 
     // Drone flight constants
     private final int flyThroughTime = 2000;
-    private int flightSpeed = 10;
+    private int flightSpeed = 5;
 
     boolean usingCommandManager = true;
 
