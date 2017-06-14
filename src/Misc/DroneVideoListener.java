@@ -8,6 +8,8 @@ import de.yadrone.base.video.ImageListener;
 
 import java.awt.image.BufferedImage;
 
+import static Statemachine.DroneAutoController.doneUpdatingStatemachine;
+
 
 /**
  * Created by malthe on 3/15/17.
@@ -27,32 +29,13 @@ public class DroneVideoListener implements ImageListener {
         this.drone = drone;
         this.imageViewer = new ImageViewer();
         drone.getVideoManager().addImageListener(this);
-        this.openCV = new testOpenCV();
     }
 
     @Override
     public void imageUpdated(BufferedImage bufferedImage) {
-
-        counter++;
-
-        imageViewer.show(bufferedImage);
-
-    /*
-        if(counter % 5 == 0) {
-            System.out.println("-------");
-            System.out.println("Bredde: " + bufferedImage.getWidth());
-            //detectAndShowCircles(bufferedImage, this.imageViewer);
-        }
-*/
-        if (counter % 15 == 0) {
+        if(doneUpdatingStatemachine) {
+            imageViewer.show(bufferedImage);
             droneAutoController.updateStateMachine(bufferedImage);
-            counter = 0;
         }
-            //img = bufferedImage;
-        //}
     }
-
-    //public BufferedImage getImg() {
-      //  return img;
-    //}
 }
