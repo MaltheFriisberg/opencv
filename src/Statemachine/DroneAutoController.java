@@ -123,6 +123,9 @@ public class DroneAutoController implements IDroneState {
             System.out.println("TAKE OFF!");
             debugWindow.updateDirection("TAKE OFF");
             cmd.takeOff();
+            cmd.up(50).doFor(2000);
+            //cmd.waitFor(2000);
+            //cmd.up(50).doFor(2000);
             //cmd.landing();
             firstEnter = false;
         }

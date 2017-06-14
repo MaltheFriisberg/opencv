@@ -18,6 +18,7 @@ public class TutorialMain
 		{
 			// Tutorial Section 1
 			drone = new ARDrone();
+			//drone.getCommandManager().
 			drone.addExceptionListener(new IExceptionListener() {
 				public void exeptionOccurred(ARDroneException exc)
 				{
