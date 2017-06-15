@@ -13,6 +13,8 @@ import de.yadrone.base.command.VideoChannel;
 import de.yadrone.base.command.VideoCodec;
 
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 import static CircleDetection.CircleDetector.detectCirclesGrayFilter;
@@ -28,14 +30,14 @@ public class DroneAutoController implements IDroneState {
     DroneVideoListener videoListener;
     QRScanner qrScanner;
     boolean firstEnter = true;
-    private Stack<BufferedImage> imageStack;
+    private Queue<BufferedImage> imageQueue;
     static public String outputText;
     static public String droneStateText;
     private DroneDebugWindow debugWindow;
 
     // Drone flight constants
-    private final int flyThroughTime = 3000;
-    private int flightSpeed = 10;
+    private final int flyThroughTime = 4000;
+    private int flightSpeed = 40;
     private Thread wThread;
     boolean usingCommandManager = true;
 
@@ -46,13 +48,13 @@ public class DroneAutoController implements IDroneState {
     // Line up konstanter
     //static public BufferedImage autoControllerImage;
     private final int pictureDeviation = 80;
-    private final int pictureWidth = 1280;
-    private final int pictureHeight = 720;
+    private int pictureWidth = 1280;
+    private int pictureHeight = 720;
     private final long FLYFORWARDCONST = 100000;
     private final int MAXALTITUDE = 3000; //3 meters
     private final int optimalCircleRadius = 260;
-    private final int optimalCircleRadiusDeviation = 30;
-    private final int timeBetweenCommands = 5;
+    private final int optimalCircleRadiusDeviation = 10;
+    private final int timeBetweenCommands = 100;
 
     // Statemachines
     private DroneStates currentState;
@@ -81,7 +83,7 @@ public class DroneAutoController implements IDroneState {
             cmd.setVideoCodec(VideoCodec.H264_720P);
 
             //drone.getVideoManager().connect(1337);
-
+            this.imageQueue = new LinkedList<>();
 
 
             videoListener = new DroneVideoListener(this, drone, this.debugWindow);
@@ -117,8 +119,8 @@ public class DroneAutoController implements IDroneState {
 
         BufferedImage image;
 
-        if(!imageStack.empty()) {
-            image = imageStack.pop();
+        if(imageQueue.peek() != null) {
+            image = imageQueue.poll();
             switch (currentState) {
                 case SearchRing:
                     searchRing(image);
@@ -144,7 +146,7 @@ public class DroneAutoController implements IDroneState {
     //The video manager thread enters here, no heavy work should be done.
     public void imageUpdated(BufferedImage image) {
 
-        imageStack.push(image);
+        imageQueue.offer(image);
 
 
 
@@ -158,7 +160,10 @@ public class DroneAutoController implements IDroneState {
             debugWindow.updateDirection("TAKE OFF");
             //start the worker thread
             this.wThread.start();
-            //cmd.takeOff();
+            cmd.takeOff().doFor(5000);
+            pictureWidth = image.getWidth();
+            pictureHeight = image.getHeight();
+            //cmd.waitFor(2000);
             //cmd.up(50).doFor(2000);
             //cmd.waitFor(2000);
             //cmd.up(50).doFor(2000);
