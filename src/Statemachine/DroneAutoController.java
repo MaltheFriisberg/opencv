@@ -160,7 +160,7 @@ public class DroneAutoController implements IDroneState {
             debugWindow.updateDirection("TAKE OFF");
             //start the worker thread
             this.wThread.start();
-            //cmd.takeOff().doFor(5000);
+            cmd.takeOff().doFor(2000);
             pictureWidth = image.getWidth();
             pictureHeight = image.getHeight();
             //cmd.waitFor(2000);
