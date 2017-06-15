@@ -46,7 +46,7 @@ public class DroneVideoListener implements ImageListener {
         debugWindow.imageUpdated(bufferedImage);
 
         counter++;
-        if (counter % 30 == 0) {
+        if (counter % 15 == 0) {
             droneAutoController.imageUpdated(bufferedImage);
             //Mat test = testRedFilter(bufferedImage);
             //debugWindow.imageUpdated(test);
@@ -54,6 +54,7 @@ public class DroneVideoListener implements ImageListener {
             //this.debugWindow.imageUpdated(bufferedImage);
 
         }
+        //droneAutoController.imageUpdated(bufferedImage);
 
 
     }
