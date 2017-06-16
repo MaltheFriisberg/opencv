@@ -2,6 +2,7 @@ package Misc;
 
 import Statemachine.DroneAutoController;
 import Util.ImageViewer;
+import Util.ReturnCircle;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import testStuff.testDrone;
@@ -29,7 +30,8 @@ public class testAutoController {
             String imagepath = "Resources/newpictures/image"+i+".jpg";
             try {
                 image = ImageIO.read(new File(imagepath));
-                //detectCirclesGrayFilter(image, viewer);
+
+                ReturnCircle circle = detectCirclesGrayFilter(image);
                 //controller.updateImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
